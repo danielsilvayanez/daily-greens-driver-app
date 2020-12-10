@@ -3,10 +3,13 @@ import { Switch, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import List from './pages/List';
+import styled from 'styled-components';
+import { Header } from './components/Header';
 
-function App() {
+export default function App() {
   return (
-    <div>
+    <AppGrid>
+      <Header />
       <Switch>
         <Route exact path="/">
           <Home />
@@ -16,8 +19,13 @@ function App() {
         </Route>
       </Switch>
       <Navigation />
-    </div>
+    </AppGrid>
   );
 }
 
-export default App;
+const AppGrid = styled.div`
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 48px auto 48px;
+`;
+
