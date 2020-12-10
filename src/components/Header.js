@@ -1,15 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-/* Get the current date*/
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, "0");
-var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-var yyyy = today.getFullYear();
-
-today = dd + "/" + mm + "/" + yyyy;
-document.write(today);
-/* Get the current date*/
+const today = new Date();
+let date =
+  today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
 
 export const Header = () => {
   return (
@@ -20,7 +14,7 @@ export const Header = () => {
           <h2>Fahrername</h2>
         </div>
         <StyledDiv2>
-          <h2>{today}</h2>
+          <h2>{date}</h2>
         </StyledDiv2>
       </StyledHeader>
     </>
