@@ -10,7 +10,7 @@ export const Header = () => {
     <>
       <StyledHeader>
         <div>
-          <h1>Daily Greens</h1>
+          <h2>Daily Greens</h2>
           <h2>Fahrername</h2>
         </div>
         <StyledDiv2>
