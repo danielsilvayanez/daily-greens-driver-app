@@ -27,6 +27,7 @@ const StyledHeader = styled.header`
   border: 1px solid black;
   padding: 5px;
   align-items: flex-end;
+  background-color: var(--primaryBGBtnGreen);
 `;
 
 const StyledDiv2 = styled.div`
