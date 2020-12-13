@@ -17,5 +17,6 @@ export default createGlobalStyle`
     body {
         background: var(--primaryBgWhite);
         color: var(--primaryFontGrey);
+        font-family: 'Lato', sans-serif;
     }
 `;
