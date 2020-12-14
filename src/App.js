@@ -13,7 +13,7 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home deliveries={deliveries} />
         </Route>
         <Route path="/list">
           <List deliveries={deliveries} />
