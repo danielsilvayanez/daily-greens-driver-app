@@ -41,7 +41,3 @@ const Container = styled.div`
     text-align: center;
   }
 `
-
-const Name = styled.div``
-
-const Address = styled.div``
