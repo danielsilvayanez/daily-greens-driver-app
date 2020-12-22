@@ -9,6 +9,7 @@ export default function Navigation() {
         Dashboard
       </StyledNavLink>
       <StyledNavLink to="/list">Aufträge</StyledNavLink>
+      <StyledNavLink to="/messages">Nachrichten</StyledNavLink>
     </Nav>
   );
 }
