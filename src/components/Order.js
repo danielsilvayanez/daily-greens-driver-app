@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Button from './Button';
 
-export default function Order({ delivery }) {
+export default function Order({ delivery, setDeliveries, index, deliveries }) {
   const [details, setDetails] = useState(false);
   const [state, setState] = useState(true);
 
@@ -11,47 +12,45 @@ export default function Order({ delivery }) {
 
   return (
     <>
-      {!delivery.done ? (
-        <StyledDiv>
-          {details ? (
-            <Container
-              height="120"
-              background="var(--secondaryBGPurple)"
-              onClick={() => setDetails(!details)}
-            >
-              <div>{delivery.address.name}</div>
-              <div>{delivery.address.street}</div>
-              <div>Tagesessen: {delivery.dayMeal}</div>
-              <div>Wochenessen: {delivery.weekMeal}</div>
-              <StyledButton
-                primary={state}
-                onClick={() => {
-                  JSON.parse((delivery.start = true));
-                  setState(false);
-                }}
-              >
-                start
-              </StyledButton>
-              <StyledButton
-                primary
-                onClick={() => {
-                  alert("Biste sicher?");
-                  JSON.parse((delivery.done = true));
-                }}
-              >
-                done
-              </StyledButton>
-            </Container>
-          ) : (
-            <Container onClick={() => setDetails(!details)}>
-              <div>{delivery.address.name}</div>
-              <div>{delivery.address.street}</div>
-            </Container>
-          )}
-        </StyledDiv>
-      ) : (
-        console.log("Auftrag erledigt")
-      )}
+      {/* {!delivery.done ? ( */}
+      <StyledDiv>
+        {details ? (
+          <Container
+            height="120"
+            background="var(--secondaryBGPurple)"
+            onClick={() => setDetails(!details)}
+          >
+            <div>{delivery.address.name}</div>
+            <div>{delivery.address.street}</div>
+            <div>Tagesessen: {delivery.dayMeal}</div>
+            <div>Wochenessen: {delivery.weekMeal}</div>
+            <Button
+              btnName="start"
+              btnState={state}
+              onClick={() => {
+                JSON.parse((delivery.start = true));
+                setState(!state);
+              }}
+            />
+
+            <Button
+              btnName="erledigt"
+              onClick={() => {
+                alert('Biste sicher?');
+                setDeliveries(JSON.parse((deliveries[index].done = true)));
+              }}
+            />
+          </Container>
+        ) : (
+          <Container onClick={() => setDetails(!details)}>
+            <div>{delivery.address.name}</div>
+            <div>{delivery.address.street}</div>
+          </Container>
+        )}
+      </StyledDiv>
+      {/* ) : (
+        console.log('Auftrag erledigt')
+      )} */}
     </>
   );
 }
@@ -72,12 +71,5 @@ const Container = styled.div`
   align-items: center;
   > * {
     text-align: center;
-  }
-`;
-
-const StyledButton = styled.button`
-  height: 50px;
-  background-color: ${(props) => (props.primary ? "white" : "green")};
-  border-radius: 5px;
   }
 `;
