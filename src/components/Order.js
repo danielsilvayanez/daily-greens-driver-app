@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Button from './Button';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import Button from "./Button";
+import NotesIcon from "../icons/notes-icon.jsx";
 
 export default function Order({ delivery, setDeliveries, index, deliveries }) {
   const [details, setDetails] = useState(false);
@@ -24,6 +25,11 @@ export default function Order({ delivery, setDeliveries, index, deliveries }) {
             <div>{delivery.address.street}</div>
             <div>Tagesessen: {delivery.dayMeal}</div>
             <div>Wochenessen: {delivery.weekMeal}</div>
+            {delivery.notes ? (
+              <StyledNotes>Notizen: {delivery.notes}</StyledNotes>
+            ) : (
+              <StyledNotes></StyledNotes>
+            )}
             <Button
               btnName="start"
               btnState={state}
@@ -36,7 +42,7 @@ export default function Order({ delivery, setDeliveries, index, deliveries }) {
             <Button
               btnName="erledigt"
               onClick={() => {
-                alert('Biste sicher?');
+                alert("Biste sicher?");
                 setDeliveries(JSON.parse((deliveries[index].done = true)));
               }}
             />
@@ -45,6 +51,7 @@ export default function Order({ delivery, setDeliveries, index, deliveries }) {
           <Container onClick={() => setDetails(!details)}>
             <div>{delivery.address.name}</div>
             <div>{delivery.address.street}</div>
+            {delivery.notes && <StyledNotesIcon />}
           </Container>
         )}
       </StyledDiv>
@@ -63,6 +70,7 @@ const StyledDiv = styled.div`
 `;
 
 const Container = styled.div`
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: ${(props) => props.height || 60}px;
@@ -72,4 +80,18 @@ const Container = styled.div`
   > * {
     text-align: center;
   }
+`;
+
+const StyledNotesIcon = styled(NotesIcon)`
+  position: absolute;
+  left: 350px;
+`;
+
+const StyledNotes = styled.div`
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  border: 1px solid var(--primaryBGBtnGreen);
+  color: var(--secondaryBGPurple);
+  font-weight: bold;
 `;
