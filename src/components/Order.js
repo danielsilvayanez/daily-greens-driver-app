@@ -23,6 +23,11 @@ export default function Order({ delivery }) {
               <div>{delivery.address.street}</div>
               <div>Tagesessen: {delivery.dayMeal}</div>
               <div>Wochenessen: {delivery.weekMeal}</div>
+              {delivery.notes ? (
+                <StyledNotes>Notizen: {delivery.notes}</StyledNotes>
+              ) : (
+                <StyledNotes></StyledNotes>
+              )}
               <StyledButton
                 primary={state}
                 onClick={() => {
@@ -61,6 +66,15 @@ const StyledDiv = styled.div`
   width: 100%;
   border: 1px solid var(--primaryBGBtnGreen);
   margin: 10px;
+`;
+
+const StyledNotes = styled.div`
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  border: 1px solid var(--primaryBGBtnGreen);
+  color: var(--secondaryBGPurple);
+  font-weight: bold;
 `;
 
 const Container = styled.div`

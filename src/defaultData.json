@@ -11,7 +11,8 @@
     "weekMeal": 2,
     "start": false,
     "done": false,
-    "box": 0
+    "box": 0,
+    "notes": "Im Hinterhof auf die grüne Tonne legen!"
   },
   {
     "date": "24.12.2020",
@@ -25,7 +26,8 @@
     "weekMeal": 2,
     "start": false,
     "done": false,
-    "box": 0
+    "box": 0,
+    "notes": ""
   },
   {
     "date": "24.12.2020",
@@ -39,7 +41,8 @@
     "weekMeal": 2,
     "start": false,
     "done": false,
-    "box": 0
+    "box": 0,
+    "notes": "3 mal klingeln"
   },
   {
     "date": "24.12.2020",
@@ -53,6 +56,7 @@
     "weekMeal": 2,
     "start": false,
     "done": false,
-    "box": 0
+    "box": 0,
+    "notes": ""
   }
 ]
