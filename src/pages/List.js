@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import Order from '../components/Order'
-import styled from 'styled-components'
+import React, { useState } from "react";
+import Order from "../components/Order";
+import styled from "styled-components";
 
 export default function List({ deliveries, setDeliveries }) {
-  const [newIndex, setNewindex] = useState(0)
+  const [newIndex, setNewindex] = useState(0);
   function showDetails(index) {
-    if (index == newIndex) {
-      return true
+    if (index === newIndex) {
+      return true;
     }
-    return false
+    return false;
   }
   return (
     <Orderlist>
@@ -26,11 +26,11 @@ export default function List({ deliveries, setDeliveries }) {
           )
       )}
     </Orderlist>
-  )
+  );
 }
 
 const Orderlist = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
