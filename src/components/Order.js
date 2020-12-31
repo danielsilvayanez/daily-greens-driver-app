@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Button from "./Button";
-import NotesIcon from "../icons/notes-icon.jsx";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Button from './Button';
+import NotesIcon from '../icons/notes-icon.jsx';
 
 export default function Order({
   delivery,
@@ -41,8 +41,11 @@ export default function Order({
             <Button
               btnName="erledigt"
               onClick={() => {
-                alert("Biste sicher?");
                 let newDeliveries = [...deliveries];
+                newDeliveries[index].box = prompt(
+                  'Wie viele Pfandboxen hast du zurück bekommen?',
+                  ''
+                );
                 newDeliveries[index].done = true;
                 setDeliveries(newDeliveries);
                 setNewindex(index + 1);
