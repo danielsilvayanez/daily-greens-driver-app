@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Button from "./Button";
-import NotesIcon from "../icons/notes-icon.jsx";
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import Button from './Button'
+import NotesIcon from '../icons/notes-icon.jsx'
 
 export default function Order({
   delivery,
@@ -11,15 +11,15 @@ export default function Order({
   details,
   setNewindex,
 }) {
-  const [state, setState] = useState(true);
+  const [state, setState] = useState(true)
 
   return (
     <>
       <StyledDiv>
         {details ? (
           <Container height="120" background="var(--secondaryBGPurple)">
-            <div>{delivery.address.name}</div>
-            <div>{delivery.address.street}</div>
+            <div>{delivery.name}</div>
+            <div>{delivery.street}</div>
             <div>Tagesessen: {delivery.dayMeal}</div>
             <div>Wochenessen: {delivery.weekMeal}</div>
             {delivery.notes ? (
@@ -31,38 +31,38 @@ export default function Order({
               btnName="start"
               btnState={state}
               onClick={() => {
-                let newDeliveries = [...deliveries];
-                newDeliveries[index].start = true;
-                setDeliveries(newDeliveries);
-                setState(!state);
+                let newDeliveries = [...deliveries]
+                newDeliveries[index].start = true
+                setDeliveries(newDeliveries)
+                setState(!state)
               }}
             />
 
             <Button
               btnName="erledigt"
               onClick={() => {
-                alert("Biste sicher?");
-                let newDeliveries = [...deliveries];
-                newDeliveries[index].done = true;
-                setDeliveries(newDeliveries);
-                setNewindex(index + 1);
+                alert('Biste sicher?')
+                let newDeliveries = [...deliveries]
+                newDeliveries[index].done = true
+                setDeliveries(newDeliveries)
+                setNewindex(index + 1)
               }}
             />
           </Container>
         ) : (
           <Container
             onClick={() => {
-              setNewindex(index);
+              setNewindex(index)
             }}
           >
-            <div>{delivery.address.name}</div>
-            <div>{delivery.address.street}</div>
+            <div>{delivery.name}</div>
+            <div>{delivery.street}</div>
             {delivery.notes && <StyledNotesIcon />}
           </Container>
         )}
       </StyledDiv>
     </>
-  );
+  )
 }
 const StyledDiv = styled.div`
   display: grid;
@@ -70,7 +70,7 @@ const StyledDiv = styled.div`
   width: 100%;
   border: 1px solid var(--primaryBGBtnGreen);
   margin: 10px;
-`;
+`
 
 const Container = styled.div`
   position: relative;
@@ -83,12 +83,12 @@ const Container = styled.div`
   > * {
     text-align: center;
   }
-`;
+`
 
 const StyledNotesIcon = styled(NotesIcon)`
   position: absolute;
   left: 350px;
-`;
+`
 
 const StyledNotes = styled.div`
   display: grid;
@@ -97,4 +97,4 @@ const StyledNotes = styled.div`
   border: 1px solid var(--primaryBGBtnGreen);
   color: var(--secondaryBGPurple);
   font-weight: bold;
-`;
+`
