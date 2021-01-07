@@ -43,8 +43,11 @@ export default function Order({
               disableState={!delivery.start && true}
               btnName="erledigt"
               onClick={() => {
-                alert("Biste sicher?");
                 let newDeliveries = [...deliveries];
+                newDeliveries[index].box = prompt(
+                  "Wie viele Pfandboxen hast du zurück bekommen?",
+                  ""
+                );
                 newDeliveries[index].done = true;
                 setDeliveries(newDeliveries);
                 setNewindex(index + 1);
