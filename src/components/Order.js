@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Button from './Button';
-import NotesIcon from '../icons/notes-icon.jsx';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import Button from "./Button";
+import NotesIcon from "../icons/notes-icon.jsx";
 
 export default function Order({
   delivery,
@@ -46,8 +46,8 @@ export default function Order({
               onClick={() => {
                 let newDeliveries = [...deliveries];
                 newDeliveries[index].box = prompt(
-                  'Wie viele Pfandboxen hast du zurück bekommen?',
-                  ''
+                  "Wie viele Pfandboxen hast du zurück bekommen?",
+                  ""
                 );
                 newDeliveries[index].done = true;
                 setDeliveries(newDeliveries);
@@ -93,7 +93,8 @@ const Container = styled.div`
 
 const StyledNotesIcon = styled(NotesIcon)`
   position: absolute;
-  left: 350px;
+  top: 10;
+  left: 10px;
 `;
 
 const StyledNotes = styled.div`
