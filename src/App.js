@@ -7,24 +7,28 @@ import styled from "styled-components";
 import { Header } from "./components/Header";
 import mockDeliveries from "./defaultData.json";
 import useAuth from "./components/auth/useAuth";
+import LoginContext from "./components/auth/loginContext";
+import firebaseApp from "./Firebase/index";
 
 export default function App() {
   const [deliveries, setDeliveries] = useState(mockDeliveries);
   const user = useAuth();
 
   return (
-    <AppGrid>
-      <Header />
-      <Switch>
-        <Route exact path="/">
-          <Home deliveries={deliveries} driverName={user} />
-        </Route>
-        <Route path="/list">
-          <List deliveries={deliveries} setDeliveries={setDeliveries} />
-        </Route>
-      </Switch>
-      <Navigation />
-    </AppGrid>
+    <LoginContext.Provider value={{ user, firebaseApp }}>
+      <AppGrid>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Home deliveries={deliveries} />
+          </Route>
+          <Route path="/list">
+            <List deliveries={deliveries} setDeliveries={setDeliveries} />
+          </Route>
+        </Switch>
+        <Navigation />
+      </AppGrid>
+    </LoginContext.Provider>
   );
 }
 

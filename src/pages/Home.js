@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import LoginContext from "../components/auth/loginContext";
 
-export default function Home({ deliveries, driverName }) {
+export default function Home({ deliveries }) {
+  const { user } = useContext(LoginContext);
   const reducer = (a, b) => a + b;
 
   const dayMealDailyTotal = deliveries
@@ -19,8 +21,8 @@ export default function Home({ deliveries, driverName }) {
   return (
     <StyledArea>
       <div>
-        {driverName ? (
-          <StyledSalutation>Moin {driverName.displayName} !</StyledSalutation>
+        {user ? (
+          <StyledSalutation>Moin {user.displayName} !</StyledSalutation>
         ) : null}
       </div>
       <StyledOverview>
