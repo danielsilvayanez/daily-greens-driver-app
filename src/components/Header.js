@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import logo from '../images/dailyGreensLogo.png'
-import getDate from '../services/getDate'
+import React from "react";
+import styled from "styled-components";
+import logo from "../images/dailyGreensLogo.png";
+import getDate from "../services/getDate";
 
-let date = getDate()
+let date = getDate();
 
 export const Header = () => {
   return (
@@ -15,8 +15,8 @@ export const Header = () => {
         </StyledDiv2>
       </StyledHeader>
     </>
-  )
-}
+  );
+};
 
 const StyledHeader = styled.header`
   display: flex;
@@ -26,9 +26,9 @@ const StyledHeader = styled.header`
   align-items: flex-end;
   background-color: var(--primaryBGBtnGreen);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-`
+`;
 
 const StyledDiv2 = styled.div`
   display: flex;
   align-items: flex-end;
-`
+`;
