@@ -9,6 +9,8 @@ import mockDeliveries from "./defaultData.json";
 import useAuth from "./components/auth/useAuth";
 import LoginContext from "./components/auth/loginContext";
 import firebaseApp from "./Firebase/index";
+import UserBar from "./components/auth/UserBar";
+import Login from "./components/auth/Login";
 
 export default function App() {
   const [deliveries, setDeliveries] = useState(mockDeliveries);
@@ -16,18 +18,30 @@ export default function App() {
 
   return (
     <LoginContext.Provider value={{ user, firebaseApp }}>
-      <AppGrid>
-        <Header />
-        <Switch>
-          <Route exact path="/">
-            <Home deliveries={deliveries} />
-          </Route>
-          <Route path="/list">
-            <List deliveries={deliveries} setDeliveries={setDeliveries} />
-          </Route>
-        </Switch>
-        <Navigation />
-      </AppGrid>
+      {user !== null ? (
+        <AppGrid>
+          {console.log("loggedIn--->", user)}
+          <Header UserBar={UserBar} />
+          <Switch>
+            <Route exact path="/">
+              <Home deliveries={deliveries} />
+            </Route>
+            <Route path="/list">
+              <List deliveries={deliveries} setDeliveries={setDeliveries} />
+            </Route>
+          </Switch>
+          <Navigation />
+        </AppGrid>
+      ) : (
+        <AppGrid>
+          {console.log("loggedOut--->", user)}
+          <Switch>
+            <Route exact path="/">
+              <Login />
+            </Route>
+          </Switch>
+        </AppGrid>
+      )}
     </LoginContext.Provider>
   );
 }
