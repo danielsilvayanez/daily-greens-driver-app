@@ -23,11 +23,11 @@ export default function App() {
           {console.log("loggedIn--->", user)}
           <Header UserBar={UserBar} />
           <Switch>
-            <Route exact path="/">
-              <Home deliveries={deliveries} />
-            </Route>
             <Route path="/list">
               <List deliveries={deliveries} setDeliveries={setDeliveries} />
+            </Route>
+            <Route path="/">
+              <Home deliveries={deliveries} />
             </Route>
           </Switch>
           <Navigation />
