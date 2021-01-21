@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
@@ -11,16 +11,24 @@ import LoginContext from "./components/auth/loginContext";
 import firebaseApp from "./Firebase/index";
 import UserBar from "./components/auth/UserBar";
 import Login from "./components/auth/Login";
+import { fetchDeliveries } from "./Firebase/services";
 
 export default function App() {
   const [deliveries, setDeliveries] = useState(mockDeliveries);
   const user = useAuth();
 
+  useEffect(() => {
+    fetchDeliveries().then((dbResult) => {
+      console.log({ dbResult });
+      // setTaskList(dbResult);
+    });
+  }, []);
+
+  console.log("db shit--->", fetchDeliveries());
   return (
     <LoginContext.Provider value={{ user, firebaseApp }}>
       {user !== null ? (
         <AppGrid>
-          {console.log("loggedIn--->", user)}
           <Header UserBar={UserBar} />
           <Switch>
             <Route path="/list">
@@ -34,7 +42,6 @@ export default function App() {
         </AppGrid>
       ) : (
         <AppGrid>
-          {console.log("loggedOut--->", user)}
           <Switch>
             <Route exact path="/">
               <Login />
