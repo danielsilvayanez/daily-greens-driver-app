@@ -1,22 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import LoginContext from "../components/auth/loginContext";
 
 export default function Home({ deliveries }) {
   const { user } = useContext(LoginContext);
   const reducer = (a, b) => a + b;
+  const [dayMealDailyTotal, setDayMealDailyTotal] = useState(0);
+  const [weekMealDailyTotal, setWeekMealDailyTotal] = useState(0);
+  const [boxDailyTotal, setBoxDailyTotal] = useState(0);
 
-  const dayMealDailyTotal = deliveries
-    .map((delivery) => delivery.dayMeal)
-    .reduce(reducer);
+  useEffect(() => {
+    if (deliveries.length > 0) {
+      setDayMealDailyTotal(
+        deliveries.map((delivery) => delivery.daymeal).reduce(reducer)
+      );
 
-  const weekMealDailyTotal = deliveries
-    .map((delivery) => delivery.weekMeal)
-    .reduce(reducer);
+      setWeekMealDailyTotal(
+        deliveries.map((delivery) => delivery.weekmeal).reduce(reducer)
+      );
 
-  const boxDailyTotal = deliveries
-    .map((delivery) => delivery.box)
-    .reduce(reducer);
+      setBoxDailyTotal(
+        deliveries.map((delivery) => delivery.box).reduce(reducer)
+      );
+    }
+    console.log("--->", deliveries);
+  }, [deliveries]);
 
   return (
     <StyledArea>

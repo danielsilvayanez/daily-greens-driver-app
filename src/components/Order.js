@@ -20,10 +20,10 @@ export default function Order({
           <Container height="120" background="var(--secondaryBGPurple)">
             <div>{delivery.name}</div>
             <div>{delivery.street}</div>
-            <div>Tagesessen: {delivery.dayMeal}</div>
-            <div>Wochenessen: {delivery.weekMeal}</div>
-            {delivery.notes ? (
-              <StyledNotes>Notizen: {delivery.notes}</StyledNotes>
+            <div>Tagesessen: {delivery.daymeal}</div>
+            <div>Wochenessen: {delivery.weekmeal}</div>
+            {delivery.message ? (
+              <StyledNotes>Notizen: {delivery.message}</StyledNotes>
             ) : (
               <StyledNotes></StyledNotes>
             )}
@@ -57,7 +57,7 @@ export default function Order({
           >
             <div>{delivery.name}</div>
             <div>{delivery.street}</div>
-            {delivery.notes && <StyledNotesIcon />}
+            {delivery.message && <StyledNotesIcon />}
           </Container>
         )}
       </StyledDiv>

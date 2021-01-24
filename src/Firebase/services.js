@@ -1,13 +1,16 @@
 import { deliveryRef } from "./index";
 
-export async function fetchDeliveries() {
-  const dbResult = await deliveryRef.get().then((data) => {
-    const deliveryData = [];
-    data.forEach((doc) => {
-      deliveryData.push(doc.data());
+export async function fetchDeliveries(userID) {
+  const dbResult = await deliveryRef
+    .where("driverID", "==", userID)
+    .get()
+    .then((data) => {
+      const deliveryData = [];
+      data.forEach((doc) => {
+        deliveryData.push(doc.data());
+      });
+      return deliveryData;
     });
-    return deliveryData;
-  });
   return dbResult;
 }
 // export function getDeliveries() {

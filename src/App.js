@@ -14,17 +14,17 @@ import Login from "./components/auth/Login";
 import { fetchDeliveries } from "./Firebase/services";
 
 export default function App() {
-  const [deliveries, setDeliveries] = useState(mockDeliveries);
+  const [deliveries, setDeliveries] = useState([]);
   const user = useAuth();
 
   useEffect(() => {
-    fetchDeliveries().then((dbResult) => {
-      console.log({ dbResult });
-      // setTaskList(dbResult);
-    });
-  }, []);
+    user &&
+      fetchDeliveries(user.uid).then((dbResult) => {
+        setDeliveries(dbResult);
+        console.log("attacke", dbResult);
+      });
+  }, [user]);
 
-  console.log("db shit--->", fetchDeliveries());
   return (
     <LoginContext.Provider value={{ user, firebaseApp }}>
       {user !== null ? (
