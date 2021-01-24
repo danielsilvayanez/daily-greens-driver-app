@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import NotesIcon from "../icons/notes-icon.jsx";
 
 export default function Order({
   delivery,
+  disabledState,
   setDeliveries,
   index,
   deliveries,
   details,
   setNewindex,
 }) {
-  const [state, setState] = useState(true);
-
+  const [btnStartState, setBtnStartState] = useState(true);
+  const [btnDoneState, setBtnDoneState] = useState(true);
+  const [btnDisabled, setBtnDisabled] = useState(true);
   return (
     <>
       <StyledDiv>
@@ -29,23 +31,28 @@ export default function Order({
             )}
             <Button
               btnName="start"
-              btnState={state}
+              disabledState={false}
+              btnState={btnStartState}
               onClick={() => {
                 let newDeliveries = [...deliveries];
                 newDeliveries[index].start = true;
                 setDeliveries(newDeliveries);
-                setState(!state);
+                setBtnStartState(!btnStartState);
+                setBtnDisabled(!btnDisabled);
               }}
             />
 
             <Button
               btnName="erledigt"
+              btnState={btnDoneState}
+              disabledState={btnDisabled}
               onClick={() => {
                 alert("Biste sicher?");
                 let newDeliveries = [...deliveries];
                 newDeliveries[index].done = true;
                 setDeliveries(newDeliveries);
                 setNewindex(index + 1);
+                setBtnDoneState(!btnDoneState);
               }}
             />
           </Container>
