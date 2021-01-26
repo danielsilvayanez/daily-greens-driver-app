@@ -16,12 +16,14 @@ export default function List({ deliveries, setDeliveries }) {
         (delivery, index) =>
           !delivery.done && (
             <Order
-              delivery={delivery}
+              delivery={delivery.document}
               deliveries={deliveries}
               setDeliveries={setDeliveries}
               index={index}
               details={showDetails(index)}
               setNewindex={setNewindex}
+              key={delivery.documentId}
+              documentId={delivery.documentId}
             />
           )
       )}

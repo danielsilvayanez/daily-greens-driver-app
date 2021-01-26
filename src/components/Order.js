@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import NotesIcon from "../icons/notes-icon.jsx";
+import { patchDelivery } from "../Firebase/services";
 
 export default function Order({
   delivery,
   disabledState,
   setDeliveries,
   index,
+  documentId,
   deliveries,
   details,
   setNewindex,
 }) {
-  const [btnStartState, setBtnStartState] = useState(true);
-  const [btnDoneState, setBtnDoneState] = useState(true);
   const [btnDisabled, setBtnDisabled] = useState(true);
+  console.log("DA KEY--->", documentId);
   return (
     <>
       <StyledDiv>
@@ -31,28 +32,27 @@ export default function Order({
             )}
             <Button
               btnName="start"
-              disabledState={false}
-              btnState={btnStartState}
+              // disabledState={delivery.start}
+              btnState={delivery.start}
               onClick={() => {
                 let newDeliveries = [...deliveries];
-                newDeliveries[index].start = true;
-                setDeliveries(newDeliveries);
-                setBtnStartState(!btnStartState);
-                setBtnDisabled(!btnDisabled);
+                newDeliveries[index].document.start = !delivery.start;
+                // setDeliveries(newDeliveries);
+                patchDelivery(documentId, newDeliveries[index].document);
               }}
             />
 
             <Button
               btnName="erledigt"
-              btnState={btnDoneState}
-              disabledState={btnDisabled}
+              btnState={delivery.done}
+              disabledState={!delivery.start}
               onClick={() => {
                 alert("Biste sicher?");
                 let newDeliveries = [...deliveries];
-                newDeliveries[index].done = true;
-                setDeliveries(newDeliveries);
+                newDeliveries[index].document.done = true;
+                // setDeliveries(newDeliveries);
                 setNewindex(index + 1);
-                setBtnDoneState(!btnDoneState);
+                patchDelivery(documentId, newDeliveries[index].document);
               }}
             />
           </Container>

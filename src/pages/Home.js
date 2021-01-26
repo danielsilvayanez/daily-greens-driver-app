@@ -12,18 +12,17 @@ export default function Home({ deliveries }) {
   useEffect(() => {
     if (deliveries.length > 0) {
       setDayMealDailyTotal(
-        deliveries.map((delivery) => delivery.daymeal).reduce(reducer)
+        deliveries.map((delivery) => delivery.document.daymeal).reduce(reducer)
       );
 
       setWeekMealDailyTotal(
-        deliveries.map((delivery) => delivery.weekmeal).reduce(reducer)
+        deliveries.map((delivery) => delivery.document.weekmeal).reduce(reducer)
       );
 
       setBoxDailyTotal(
-        deliveries.map((delivery) => delivery.box).reduce(reducer)
+        deliveries.map((delivery) => delivery.document.box).reduce(reducer)
       );
     }
-    console.log("--->", deliveries);
   }, [deliveries]);
 
   return (

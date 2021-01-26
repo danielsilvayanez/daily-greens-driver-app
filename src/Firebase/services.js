@@ -2,20 +2,33 @@ import { deliveryRef } from "./index";
 
 export async function fetchDeliveries(userID) {
   const dbResult = await deliveryRef
-    .where("driverID", "==", userID)
+    .where("driverId", "==", userID)
     .get()
     .then((data) => {
       const deliveryData = [];
       data.forEach((doc) => {
-        deliveryData.push(doc.data());
+        deliveryData.push({ document: doc.data(), documentId: doc.id });
       });
       return deliveryData;
     });
   return dbResult;
 }
-// export function getDeliveries() {
-//   return fetchDeliveries();
-// }
+
+export function patchDelivery(documentId, data) {
+  return deliveryRef
+    .doc(documentId)
+    .update(data)
+    .then(() => {
+      return deliveryRef
+        .doc(documentId)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            return doc.data();
+          }
+        });
+    });
+}
 
 // export function postDelivery(data) {
 //   return db
@@ -32,22 +45,6 @@ export async function fetchDeliveries(userID) {
 //       return documentId;
 //     })
 //     .then((documentId) => {
-//       return db
-//         .doc(documentId)
-//         .get()
-//         .then((doc) => {
-//           if (doc.exists) {
-//             return doc.data();
-//           }
-//         });
-//     });
-// }
-
-// export function patchDelivery(documentId, data) {
-//   return db
-//     .doc(documentId)
-//     .update(data)
-//     .then(() => {
 //       return db
 //         .doc(documentId)
 //         .get()

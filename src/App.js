@@ -21,9 +21,16 @@ export default function App() {
     user &&
       fetchDeliveries(user.uid).then((dbResult) => {
         setDeliveries(dbResult);
-        console.log("attacke", dbResult);
       });
   }, [user]);
+
+  useEffect(() => {
+    deliveries.length > 0 &&
+      console.log("deliveries----->", deliveries[0].documentId);
+    // patchDeliveries(???, ????).then((dbResult) => {
+    //   setDeliveries(dbResult);
+    // });
+  }, [deliveries]);
 
   return (
     <LoginContext.Provider value={{ user, firebaseApp }}>
