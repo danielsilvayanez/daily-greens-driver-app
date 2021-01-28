@@ -15,8 +15,10 @@ export default function Navigation() {
 
 const Nav = styled.nav`
   display: flex;
-
   padding: 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 `;
 
 const StyledNavLink = styled(NavLink)`

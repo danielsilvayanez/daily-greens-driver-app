@@ -2,19 +2,22 @@
 
 import React, { useRef } from "react";
 import styled from "styled-components";
-import firebaseApp from "../../firebase";
+import firebaseApp from "../../Firebase/index";
+import { useHistory } from "react-router-dom";
 
-export default function Login({ history }) {
+export default function Login() {
   const userEmail = useRef(null);
   const userPassword = useRef(null);
+  const history = useHistory();
 
   async function loginWithFirebase(email, password) {
     await firebaseApp.signInWithEmailAndPassword(email, password);
-    return history.push("/");
+    return history.push("/home");
   }
 
   return (
     <div>
+      <h2>Moin, bitte hier einloggen</h2>
       <form
         onSubmit={(event) => (
           event.preventDefault(),

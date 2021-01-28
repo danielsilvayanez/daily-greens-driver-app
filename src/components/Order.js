@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import NotesIcon from "../icons/notes-icon.jsx";
+import { patchDelivery } from "../Firebase/services";
 
 export default function Order({
   delivery,
+  disabledState,
   setDeliveries,
   index,
+  documentId,
   deliveries,
   details,
   setNewindex,
 }) {
-  const [state, setState] = useState(true);
+
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  console.log("DA KEY--->", documentId);
 
   return (
     <>
@@ -20,38 +26,40 @@ export default function Order({
           <Container height="120" background="var(--secondaryBGPurple)">
             <div>{delivery.name}</div>
             <div>{delivery.street}</div>
-            <div>Tagesessen: {delivery.dayMeal}</div>
-            <div>Wochenessen: {delivery.weekMeal}</div>
-            <div>Telefon: {delivery.phone}</div>
-            {delivery.notes ? (
-              <StyledNotes>Notizen: {delivery.notes}</StyledNotes>
+            <div>Tagesessen: {delivery.daymeal}</div>
+            <div>Wochenessen: {delivery.weekmeal}</div>
+            {delivery.message ? (
+              <StyledNotes>Notizen: {delivery.message}</StyledNotes>
             ) : (
               <StyledNotes></StyledNotes>
             )}
+            <StyledNotes>Telefon: {delivery.phone} </StyledNotes>
             <Button
               btnName="start"
-              disableState={false}
-              btnState={state}
+              btnState={delivery.start}
               onClick={() => {
                 let newDeliveries = [...deliveries];
-                newDeliveries[index].start = true;
+                newDeliveries[index].document.start = !delivery.start;
                 setDeliveries(newDeliveries);
-                setState(!state);
+                patchDelivery(documentId, newDeliveries[index].document);
               }}
             />
 
             <Button
               disableState={!delivery.start && true}
               btnName="erledigt"
+              btnState={delivery.done}
+              disabledState={!delivery.start}
               onClick={() => {
                 let newDeliveries = [...deliveries];
-                newDeliveries[index].box = prompt(
-                  "Wie viele Pfandboxen hast du zurück bekommen?",
-                  ""
+
+                newDeliveries[index].box = Number(
+                  prompt("Wie viele Pfandboxen hast du zurück bekommen?")
                 );
-                newDeliveries[index].done = true;
-                setDeliveries(newDeliveries);
+                newDeliveries[index].document.done = true;
+                // setDeliveries(newDeliveries);
                 setNewindex(index + 1);
+                patchDelivery(documentId, newDeliveries[index].document);
               }}
             />
           </Container>
@@ -63,7 +71,7 @@ export default function Order({
           >
             <div>{delivery.name}</div>
             <div>{delivery.street}</div>
-            {delivery.notes && <StyledNotesIcon />}
+            {delivery.message && <StyledNotesIcon />}
           </Container>
         )}
       </StyledDiv>
@@ -93,8 +101,7 @@ const Container = styled.div`
 
 const StyledNotesIcon = styled(NotesIcon)`
   position: absolute;
-  top: 10;
-  left: 10px;
+  left: 350px;
 `;
 
 const StyledNotes = styled.div`

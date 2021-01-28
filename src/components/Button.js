@@ -1,18 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Button({
-  onClick,
-  btnName,
-  disableState,
-  btnState = true,
-}) {
+export default function Button({ onClick, btnName, btnState, disabledState }) {
   return (
     <StyledButton
-      disabled={disableState}
+      disabled={disabledState}
       onClick={() => {
         onClick();
-        // setState(!state);
       }}
       primary={btnState}
     >
@@ -23,6 +17,7 @@ export default function Button({
 
 const StyledButton = styled.button`
   height: 50px;
-  background-color: ${(props) => (props.primary ? "white" : "green")};
+
+  background-color: ${(props) => (props.primary ? "green" : "white")};
   border-radius: 5px;
 `;
