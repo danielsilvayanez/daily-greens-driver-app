@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
@@ -14,8 +15,10 @@ export default function Order({
   details,
   setNewindex,
 }) {
+
   const [btnDisabled, setBtnDisabled] = useState(true);
   console.log("DA KEY--->", documentId);
+
   return (
     <>
       <StyledDiv>
@@ -43,11 +46,13 @@ export default function Order({
             />
 
             <Button
+              disableState={!delivery.start && true}
               btnName="erledigt"
               btnState={delivery.done}
               disabledState={!delivery.start}
               onClick={() => {
                 let newDeliveries = [...deliveries];
+
                 newDeliveries[index].box = Number(
                   prompt("Wie viele Pfandboxen hast du zurück bekommen?")
                 );
