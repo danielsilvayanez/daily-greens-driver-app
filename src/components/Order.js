@@ -30,14 +30,14 @@ export default function Order({
             ) : (
               <StyledNotes></StyledNotes>
             )}
+            <StyledNotes>Telefon: {delivery.phone} </StyledNotes>
             <Button
               btnName="start"
-              // disabledState={delivery.start}
               btnState={delivery.start}
               onClick={() => {
                 let newDeliveries = [...deliveries];
                 newDeliveries[index].document.start = !delivery.start;
-                // setDeliveries(newDeliveries);
+                setDeliveries(newDeliveries);
                 patchDelivery(documentId, newDeliveries[index].document);
               }}
             />
@@ -47,8 +47,10 @@ export default function Order({
               btnState={delivery.done}
               disabledState={!delivery.start}
               onClick={() => {
-                alert("Biste sicher?");
                 let newDeliveries = [...deliveries];
+                newDeliveries[index].box = Number(
+                  prompt("Wie viele Pfandboxen hast du zurück bekommen?")
+                );
                 newDeliveries[index].document.done = true;
                 // setDeliveries(newDeliveries);
                 setNewindex(index + 1);
