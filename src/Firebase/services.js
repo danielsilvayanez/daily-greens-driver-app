@@ -1,8 +1,12 @@
 import { deliveryRef } from "./index";
+import timestamp from "time-stamp";
 
+const currentDate = timestamp("YYYY-MM-DD");
+console.log(timestamp("YYYY-MM-DD"));
 export async function fetchDeliveries(userID) {
   const dbResult = await deliveryRef
     .where("driverId", "==", userID)
+    .where("date", "==", currentDate)
     .get()
     .then((data) => {
       const deliveryData = [];
