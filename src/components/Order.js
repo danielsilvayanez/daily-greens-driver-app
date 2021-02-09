@@ -45,7 +45,7 @@ export default function Order({
             />
 
             <Button
-              disableState={!delivery.start && true}
+              disabledState={!delivery.start}
               btnName="erledigt"
               btnState={delivery.done}
               onClick={() => {

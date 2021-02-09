@@ -15,7 +15,7 @@ export default function List({ deliveries, setDeliveries }) {
     <Orderlist>
       {deliveries.map(
         (delivery, index) =>
-          delivery.done && (
+          !delivery.document.done && (
             <Order
               delivery={delivery.document}
               deliveries={deliveries}
