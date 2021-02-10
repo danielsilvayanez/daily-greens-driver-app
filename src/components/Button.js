@@ -17,8 +17,9 @@ export default function Button({ onClick, btnName, btnState, disabledState }) {
 
 const StyledButton = styled.button`
   height: 50px;
-
+  border: 2px solid var(--secondaryBGPurple);
   background-color: ${(props) =>
     props.primary ? "var(--primaryBGBtnGreen)" : "var(--primaryBgWhite)"};
-  border-radius: 5px;
+  border-radius: 15px;
+  margin: 0 2px;
 `;

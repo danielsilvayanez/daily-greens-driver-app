@@ -61,4 +61,5 @@ const StyledOverview = styled.section`
   flex-direction: column;
   border: 1px solid black;
   border-radius: 25px;
+  background-color: var(--primaryBgWhite);
 `;

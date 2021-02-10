@@ -14,7 +14,7 @@ export default function Order({
   details,
   setNewindex,
 }) {
-  const [btnDisabled, setBtnDisabled] = useState(true);
+  // const [btnDisabled, setBtnDisabled] = useState(true);
 
   console.log("deliveryDone-->", delivery.done);
 
@@ -32,7 +32,9 @@ export default function Order({
             ) : (
               <StyledNotes></StyledNotes>
             )}
-            <StyledNotes>Telefon: {delivery.phone} </StyledNotes>
+            <StyledNotes>
+              <StyledPhone>Telefon: {delivery.phone}</StyledPhone>{" "}
+            </StyledNotes>
 
             {!delivery.done && (
               <>
@@ -98,7 +100,7 @@ const Container = styled.div`
   > * {
     text-align: center;
   }
-  background-color: var(--primaryFontGrey);
+  background-color: var(--primaryBgWhite);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -117,6 +119,10 @@ const StyledNotes = styled.div`
   display: grid;
   grid-column-start: 1;
   grid-column-end: 3;
-  border: 1px solid var(--primaryBGBtnGreen);
   font-weight: bold;
+  border: 1px solid var(-primaryBGBtnGreen;);
+`;
+
+const StyledPhone = styled.span`
+  background-image: linear-gradient(#ff9d2f, #ff6126);
 `;

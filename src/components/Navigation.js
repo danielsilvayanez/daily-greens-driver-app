@@ -23,7 +23,7 @@ const Nav = styled.nav`
 const StyledNavLink = styled(NavLink)`
   display: flex;
   flex-grow: 1;
-  border: 2px solid var(--primaryBGBtnGreen);
+  border: none;
   border-radius: 15px;
   margin-right: 2px;
   justify-content: center;
@@ -31,7 +31,7 @@ const StyledNavLink = styled(NavLink)`
   text-align: center;
   text-decoration: none;
   padding: 5px;
-  box-shadow: inset 1px 1px 1px #000;
+
   :hover {
     cursor: pointer;
   }
@@ -41,7 +41,7 @@ const StyledNavLink = styled(NavLink)`
   }
 
   &.active {
-    background-color: var(--primaryBGBtnGreen);
-    color: var(--primaryBg);
+    background-color: var(--secondaryBGPurple);
+    color: var(--primaryBgWhite);
   }
 `;
