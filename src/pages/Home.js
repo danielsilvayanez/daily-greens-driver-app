@@ -50,7 +50,6 @@ const StyledArea = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
-  border: 1px solid black;
 `;
 
 const StyledOverview = styled.section`
