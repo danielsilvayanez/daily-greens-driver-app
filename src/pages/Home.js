@@ -9,6 +9,8 @@ export default function Home({ deliveries }) {
   const [weekMealDailyTotal, setWeekMealDailyTotal] = useState(0);
   const [boxDailyTotal, setBoxDailyTotal] = useState(0);
 
+  console.log("deliveries", deliveries);
+
   useEffect(() => {
     if (deliveries.length > 0) {
       setDayMealDailyTotal(
