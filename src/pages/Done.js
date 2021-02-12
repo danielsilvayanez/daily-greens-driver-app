@@ -10,12 +10,11 @@ export default function List({ deliveries, setDeliveries }) {
     }
     return false;
   }
-
   return (
     <Orderlist>
       {deliveries.map(
         (delivery, index) =>
-          !delivery.document.done && (
+          delivery.document.done && (
             <Order
               delivery={delivery.document}
               deliveries={deliveries}

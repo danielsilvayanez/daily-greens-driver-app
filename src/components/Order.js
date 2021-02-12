@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
@@ -15,9 +14,9 @@ export default function Order({
   details,
   setNewindex,
 }) {
+  // const [btnDisabled, setBtnDisabled] = useState(true);
 
-  const [btnDisabled, setBtnDisabled] = useState(true);
-  console.log("DA KEY--->", documentId);
+  console.log("deliveryDone-->", delivery.done);
 
   return (
     <>
@@ -33,35 +32,39 @@ export default function Order({
             ) : (
               <StyledNotes></StyledNotes>
             )}
-            <StyledNotes>Telefon: {delivery.phone} </StyledNotes>
-            <Button
-              btnName="start"
-              btnState={delivery.start}
-              onClick={() => {
-                let newDeliveries = [...deliveries];
-                newDeliveries[index].document.start = !delivery.start;
-                setDeliveries(newDeliveries);
-                patchDelivery(documentId, newDeliveries[index].document);
-              }}
-            />
+            <StyledNotes>
+              <StyledPhone>Telefon: {delivery.phone}</StyledPhone>{" "}
+            </StyledNotes>
 
-            <Button
-              disableState={!delivery.start && true}
-              btnName="erledigt"
-              btnState={delivery.done}
-              disabledState={!delivery.start}
-              onClick={() => {
-                let newDeliveries = [...deliveries];
-
-                newDeliveries[index].box = Number(
-                  prompt("Wie viele Pfandboxen hast du zurück bekommen?")
-                );
-                newDeliveries[index].document.done = true;
-                // setDeliveries(newDeliveries);
-                setNewindex(index + 1);
-                patchDelivery(documentId, newDeliveries[index].document);
-              }}
-            />
+            {!delivery.done && (
+              <>
+                <Button
+                  btnName="start"
+                  btnState={delivery.start}
+                  onClick={() => {
+                    let newDeliveries = [...deliveries];
+                    newDeliveries[index].document.start = !delivery.start;
+                    setDeliveries(newDeliveries);
+                    patchDelivery(documentId, newDeliveries[index].document);
+                  }}
+                />
+                <Button
+                  disabledState={!delivery.start}
+                  btnName="erledigt"
+                  btnState={delivery.done}
+                  onClick={() => {
+                    let newDeliveries = [...deliveries];
+                    newDeliveries[index].box = Number(
+                      prompt("Wie viele Pfandboxen hast du zurück bekommen?")
+                    );
+                    newDeliveries[index].document.done = true;
+                    setDeliveries(newDeliveries);
+                    setNewindex(index + 1);
+                    patchDelivery(documentId, newDeliveries[index].document);
+                  }}
+                />
+              </>
+            )}
           </Container>
         ) : (
           <Container
@@ -82,11 +85,11 @@ const StyledDiv = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
-  border: 1px solid var(--primaryBGBtnGreen);
   margin: 10px;
 `;
 
 const Container = styled.div`
+  border-radius: 15px;
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -96,6 +99,14 @@ const Container = styled.div`
   align-items: center;
   > * {
     text-align: center;
+  }
+  background-color: var(--primaryBgWhite);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  color: black;
+  :hover {
+    cursor: pointer;
   }
 `;
 
@@ -108,7 +119,10 @@ const StyledNotes = styled.div`
   display: grid;
   grid-column-start: 1;
   grid-column-end: 3;
-  border: 1px solid var(--primaryBGBtnGreen);
-  color: var(--secondaryBGPurple);
   font-weight: bold;
+  border: 1px solid var(-primaryBGBtnGreen;);
+`;
+
+const StyledPhone = styled.span`
+  background-image: linear-gradient(#ff9d2f, #ff6126);
 `;

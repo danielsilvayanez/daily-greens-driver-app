@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import List from "./pages/List";
+import Done from "./pages/Done";
 import styled from "styled-components";
 import { Header } from "./components/Header";
 import mockDeliveries from "./defaultData.json";
@@ -40,6 +41,9 @@ export default function App() {
           <Switch>
             <Route path="/list">
               <List deliveries={deliveries} setDeliveries={setDeliveries} />
+            </Route>
+            <Route path="/done">
+              <Done deliveries={deliveries} setDeliveries={setDeliveries} />
             </Route>
             <Route path="/">
               <Home deliveries={deliveries} />

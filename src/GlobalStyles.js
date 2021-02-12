@@ -15,8 +15,11 @@ export default createGlobalStyle`
     }
     
     body {
-        background: var(--primaryBgWhite);
+        background-image: linear-gradient(#ff9d2f, #ff6126);
         color: var(--primaryFontGrey);
         font-family: 'Lato', sans-serif;
+    }
+    main{
+        margin: 0 15px;
     }
 `;

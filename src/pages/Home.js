@@ -9,6 +9,8 @@ export default function Home({ deliveries }) {
   const [weekMealDailyTotal, setWeekMealDailyTotal] = useState(0);
   const [boxDailyTotal, setBoxDailyTotal] = useState(0);
 
+  console.log("deliveries", deliveries);
+
   useEffect(() => {
     if (deliveries.length > 0) {
       setDayMealDailyTotal(
@@ -50,7 +52,6 @@ const StyledArea = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
-  border: 1px solid black;
 `;
 
 const StyledOverview = styled.section`
@@ -62,4 +63,5 @@ const StyledOverview = styled.section`
   flex-direction: column;
   border: 1px solid black;
   border-radius: 25px;
+  background-color: var(--primaryBgWhite);
 `;
