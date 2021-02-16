@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Button from "./Button";
-import NotesIcon from "../icons/notes-icon.jsx";
-import { patchDelivery } from "../Firebase/services";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Button from './Button';
+import NotesIcon from '../icons/notes-icon.jsx';
+import { patchDelivery } from '../Firebase/services';
 
 export default function Order({
   delivery,
@@ -16,7 +16,7 @@ export default function Order({
 }) {
   // const [btnDisabled, setBtnDisabled] = useState(true);
 
-  console.log("deliveryDone-->", delivery.done);
+  console.log('deliveryDone-->', delivery.done);
 
   return (
     <>
@@ -33,7 +33,7 @@ export default function Order({
               <StyledNotes></StyledNotes>
             )}
             <StyledNotes>
-              <StyledPhone>Telefon: {delivery.phone}</StyledPhone>{" "}
+              <StyledPhone>Telefon: {delivery.phone}</StyledPhone>{' '}
             </StyledNotes>
 
             {!delivery.done && (
@@ -52,11 +52,10 @@ export default function Order({
                   disabledState={!delivery.start}
                   btnName="erledigt"
                   btnState={delivery.done}
-                  onClick={() => {
+                  onClick={(boxNum, smallboxNum) => {
                     let newDeliveries = [...deliveries];
-                    newDeliveries[index].box = Number(
-                      prompt("Wie viele Pfandboxen hast du zurück bekommen?")
-                    );
+                    newDeliveries[index].box = boxNum;
+                    newDeliveries[index].smallbox = smallboxNum;
                     newDeliveries[index].document.done = true;
                     setDeliveries(newDeliveries);
                     setNewindex(index + 1);
