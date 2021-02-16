@@ -8,8 +8,8 @@ export default function Home({ deliveries }) {
   const [dayMealDailyTotal, setDayMealDailyTotal] = useState(0);
   const [weekMealDailyTotal, setWeekMealDailyTotal] = useState(0);
   const [boxDailyTotal, setBoxDailyTotal] = useState(0);
-
-  console.log("deliveries", deliveries);
+  const [boxSmallDailyTotal, setBoxSmallDailyTotal] = useState(0);
+  const [extras, setExtras] = useState([]);
 
   useEffect(() => {
     if (deliveries.length > 0) {
@@ -24,8 +24,24 @@ export default function Home({ deliveries }) {
       setBoxDailyTotal(
         deliveries.map((delivery) => delivery.document.box).reduce(reducer)
       );
+
+      setBoxSmallDailyTotal(
+        deliveries.map((delivery) => delivery.document.boxsmall).reduce(reducer)
+      );
+      setExtras();
     }
   }, [deliveries]);
+
+  function getExtras() {
+    const keys = [];
+    const values = [];
+
+    deliveries.map((delivery) => {
+      keys.push(Object.keys(delivery.document.extra));
+      values.push(Object.values(delivery.document.extra));
+    });
+    return [keys, values];
+  }
 
   return (
     <StyledArea>
@@ -35,10 +51,22 @@ export default function Home({ deliveries }) {
         ) : null}
       </div>
       <StyledOverview>
-        <p>Dashboard</p>
+        <h3>Dashboard</h3>
         <p>Tagesgericht gesamt: {dayMealDailyTotal}</p>
         <p>Wochengericht gesamt: {weekMealDailyTotal}</p>
-        <p>Pfandboxen zurück: {boxDailyTotal}</p>
+        <p>Extra/s: </p>
+
+        {extras.map((extra) => (
+          <p>
+            <div>{extra[0]}</div>
+            <div>{extra[1]}</div>
+          </p>
+        ))}
+      </StyledOverview>
+      <StyledOverview>
+        <h3>Pfandboxen Retour</h3>
+        <p>Pfandboxen normal zurück: {boxDailyTotal}</p>
+        <p>Pfandboxen klein zurück: {boxSmallDailyTotal}</p>
       </StyledOverview>
     </StyledArea>
   );
