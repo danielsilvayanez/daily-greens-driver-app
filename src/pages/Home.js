@@ -1,46 +1,56 @@
-import React, { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
-import LoginContext from "../components/auth/loginContext";
+import React, { useContext, useEffect, useState } from 'react'
+import styled from 'styled-components'
+import LoginContext from '../components/auth/loginContext'
 
 export default function Home({ deliveries }) {
-  const { user } = useContext(LoginContext);
-  const reducer = (a, b) => a + b;
-  const [dayMealDailyTotal, setDayMealDailyTotal] = useState(0);
-  const [weekMealDailyTotal, setWeekMealDailyTotal] = useState(0);
-  const [boxDailyTotal, setBoxDailyTotal] = useState(0);
-  const [boxSmallDailyTotal, setBoxSmallDailyTotal] = useState(0);
-  const [extras, setExtras] = useState([]);
+  const { user } = useContext(LoginContext)
+  const reducer = (a, b) => a + b
+  const [dayMealDailyTotal, setDayMealDailyTotal] = useState(0)
+  const [weekMealDailyTotal, setWeekMealDailyTotal] = useState(0)
+  const [boxDailyTotal, setBoxDailyTotal] = useState(0)
+  const [boxSmallDailyTotal, setBoxSmallDailyTotal] = useState(0)
+  const [extras, setExtras] = useState([])
+  //const [cache, setCache] = useState({})
 
   useEffect(() => {
     if (deliveries.length > 0) {
       setDayMealDailyTotal(
         deliveries.map((delivery) => delivery.document.daymeal).reduce(reducer)
-      );
+      )
 
       setWeekMealDailyTotal(
         deliveries.map((delivery) => delivery.document.weekmeal).reduce(reducer)
-      );
+      )
 
       setBoxDailyTotal(
         deliveries.map((delivery) => delivery.document.box).reduce(reducer)
-      );
+      )
 
       setBoxSmallDailyTotal(
         deliveries.map((delivery) => delivery.document.boxsmall).reduce(reducer)
-      );
-      setExtras();
+      )
+      setExtras(Object.entries(getExtras()))
     }
-  }, [deliveries]);
+  }, [deliveries])
 
   function getExtras() {
-    const keys = [];
-    const values = [];
+    const keys = []
+    const values = []
+    let cache = {}
 
     deliveries.map((delivery) => {
-      keys.push(Object.keys(delivery.document.extra));
-      values.push(Object.values(delivery.document.extra));
-    });
-    return [keys, values];
+      keys.push(Object.keys(delivery.document.extra))
+      values.push(Object.values(delivery.document.extra))
+    })
+
+    keys.map((key, index) => {
+      if (key in extras) {
+        cache = { ...cache, [key]: cache[key] + values[index] }
+      } else {
+        cache = { ...cache, [key]: values[index] }
+      }
+    })
+    return cache
   }
 
   return (
@@ -69,18 +79,18 @@ export default function Home({ deliveries }) {
         <p>Pfandboxen klein zurück: {boxSmallDailyTotal}</p>
       </StyledOverview>
     </StyledArea>
-  );
+  )
 }
 
 const StyledSalutation = styled.h1`
   margin-top: 10px;
-`;
+`
 
 const StyledArea = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
-`;
+`
 
 const StyledOverview = styled.section`
   margin-top: 80px;
@@ -92,4 +102,4 @@ const StyledOverview = styled.section`
   border: 1px solid black;
   border-radius: 25px;
   background-color: var(--primaryBgWhite);
-`;
+`
