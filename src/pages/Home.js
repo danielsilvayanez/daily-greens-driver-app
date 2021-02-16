@@ -44,11 +44,9 @@ export default function Home({ deliveries }) {
     })
 
     keys.map((key, index) => {
-      if (key in extras) {
-        cache = { ...cache, [key]: cache[key] + values[index] }
-      } else {
-        cache = { ...cache, [key]: values[index] }
-      }
+      key in extras
+        ? (cache = { ...cache, [key]: cache[key] + values[index] })
+        : (cache = { ...cache, [key]: values[index] })
     })
     return cache
   }
