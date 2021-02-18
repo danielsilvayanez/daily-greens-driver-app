@@ -63,12 +63,12 @@ export default function Home({ deliveries }) {
         <h3>Dashboard</h3>
         <p>Tagesgericht gesamt: {dayMealDailyTotal}</p>
         <p>Wochengericht gesamt: {weekMealDailyTotal}</p>
-        <p>Extra/s: </p>
+        <br />
+        <h4>Extra/s: </h4>
 
         {extras.map((extra) => (
           <p>
-            <div>{extra[0]}</div>
-            <div>{extra[1]}</div>
+            {extra[0]}: {extra[1]}
           </p>
         ))}
       </StyledOverview>
