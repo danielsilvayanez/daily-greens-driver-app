@@ -19,7 +19,4 @@ export default createGlobalStyle`
         color: var(--primaryFontGrey);
         font-family: 'Lato', sans-serif;
     }
-    main{
-        margin: 0 15px;
-    }
 `;
