@@ -5,9 +5,10 @@ function useAuth() {
   const [authUser, setAuthUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = firebaseApp.onAuthStateChanged((user) =>
-      setAuthUser(user ? user : null)
-    );
+    const unsubscribe = firebaseApp.onAuthStateChanged((user) => {
+      console.log("da user", user);
+      setAuthUser(user ? user : null);
+    });
 
     return () => unsubscribe();
   }, []);

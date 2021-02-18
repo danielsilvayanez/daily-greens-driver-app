@@ -16,7 +16,7 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <Container>
       <h2>Moin, bitte hier einloggen</h2>
       <form
         onSubmit={(event) => (
@@ -24,7 +24,7 @@ export default function Login() {
           loginWithFirebase(userEmail.current.value, userPassword.current.value)
         )}
       >
-        <div>
+        <LoginContainer>
           <StyledLabel htmlFor="user-email">E-Mail</StyledLabel>
           <StyledInput
             htmlId="user-email"
@@ -32,8 +32,7 @@ export default function Login() {
             type="text"
             ref={userEmail}
           />
-        </div>
-        <div>
+
           <StyledLabel htmlFor="user-password">Password</StyledLabel>
           <StyledInput
             htmlId="user-password"
@@ -41,29 +40,48 @@ export default function Login() {
             type="password"
             ref={userPassword}
           />
-        </div>
-        <div>
+
           <StyledButton type="submit">Login</StyledButton>
-        </div>
+        </LoginContainer>
       </form>
-    </div>
+    </Container>
   );
 }
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const LoginContainer = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 260px;
+`;
+
 const StyledInput = styled.input`
   padding: 0.5em;
-  margin: 0.5em;
   border: 1px solid gray;
   border-radius: 3px;
-  width: 40%;
+  width: 100%;
+  margin-bottom: 10px;
 `;
 
 const StyledLabel = styled.label`
   display: block;
-  margin: 0 0.5em;
 `;
 
 const StyledButton = styled.button`
   display: block;
-  margin: 0.5em;
+  height: 43px;
+  width: 80px;
+  border-radius: 15px;
+  border: none;
+  background-color: var(--secondaryBGPurple);
+  color: var(--primaryBgWhite);
 `;

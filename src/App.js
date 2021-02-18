@@ -53,6 +53,7 @@ export default function App() {
         </AppGrid>
       ) : (
         <AppGrid>
+          <Header UserBar={UserBar} />
           <Switch>
             <Route exact path="/">
               <Login />

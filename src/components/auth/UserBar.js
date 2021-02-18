@@ -14,13 +14,7 @@ export default function UserBar() {
 
   return (
     <div>
-      {user ? (
-        <Button onClick={logoutFromFirebase}>Logout</Button>
-      ) : (
-        <>
-          <button onClick={() => history.push("/login")}>Login</button> |
-        </>
-      )}
+      {user ? <Button onClick={logoutFromFirebase}>Logout</Button> : undefined}
     </div>
   );
 }

@@ -8,8 +8,9 @@ export default function Home({ deliveries }) {
   const [dayMealDailyTotal, setDayMealDailyTotal] = useState(0);
   const [weekMealDailyTotal, setWeekMealDailyTotal] = useState(0);
   const [boxDailyTotal, setBoxDailyTotal] = useState(0);
-
-  console.log("deliveries", deliveries);
+  const [boxSmallDailyTotal, setBoxSmallDailyTotal] = useState(0);
+  const [extras, setExtras] = useState([]);
+  //const [cache, setCache] = useState({})
 
   useEffect(() => {
     if (deliveries.length > 0) {
@@ -24,8 +25,32 @@ export default function Home({ deliveries }) {
       setBoxDailyTotal(
         deliveries.map((delivery) => delivery.document.box).reduce(reducer)
       );
+
+      setBoxSmallDailyTotal(
+        deliveries.map((delivery) => delivery.document.boxsmall).reduce(reducer)
+      );
+      setExtras(Object.entries(getExtras()));
     }
   }, [deliveries]);
+
+  function getExtras() {
+    const keys = [];
+    const values = [];
+    let cache = {};
+
+    deliveries.map((delivery) => {
+      keys.push(...Object.keys(delivery.document.extra));
+      values.push(...Object.values(delivery.document.extra));
+    });
+
+    keys.map((key, index) => {
+      key in cache
+        ? (cache = { ...cache, [key]: cache[key] + values[index] })
+        : (cache = { ...cache, [key]: values[index] });
+    });
+
+    return cache;
+  }
 
   return (
     <StyledArea>
@@ -35,10 +60,22 @@ export default function Home({ deliveries }) {
         ) : null}
       </div>
       <StyledOverview>
-        <p>Dashboard</p>
+        <h3>Dashboard</h3>
         <p>Tagesgericht gesamt: {dayMealDailyTotal}</p>
         <p>Wochengericht gesamt: {weekMealDailyTotal}</p>
-        <p>Pfandboxen zurück: {boxDailyTotal}</p>
+        <br />
+        <h4>Extra/s: </h4>
+
+        {extras.map((extra) => (
+          <p>
+            {extra[0]}: {extra[1]}
+          </p>
+        ))}
+      </StyledOverview>
+      <StyledOverview>
+        <h3>Pfandboxen Retour</h3>
+        <p>Pfandboxen normal zurück: {boxDailyTotal}</p>
+        <p>Pfandboxen klein zurück: {boxSmallDailyTotal}</p>
       </StyledOverview>
     </StyledArea>
   );
