@@ -38,17 +38,19 @@ export default function App() {
       {user !== null ? (
         <AppGrid>
           <Header UserBar={UserBar} />
-          <Switch>
-            <Route path="/list">
-              <List deliveries={deliveries} setDeliveries={setDeliveries} />
-            </Route>
-            <Route path="/done">
-              <Done deliveries={deliveries} setDeliveries={setDeliveries} />
-            </Route>
-            <Route path="/">
-              <Home deliveries={deliveries} />
-            </Route>
-          </Switch>
+          <Main>
+            <Switch>
+              <Route path="/list">
+                <List deliveries={deliveries} setDeliveries={setDeliveries} />
+              </Route>
+              <Route path="/done">
+                <Done deliveries={deliveries} setDeliveries={setDeliveries} />
+              </Route>
+              <Route path="/">
+                <Home deliveries={deliveries} />
+              </Route>
+            </Switch>
+          </Main>
           <Navigation />
         </AppGrid>
       ) : (
@@ -69,4 +71,14 @@ const AppGrid = styled.div`
   height: 100vh;
   display: grid;
   grid-template-rows: 60px auto 48px;
+`;
+
+const Main = styled.main`
+  overflow-y: scroll;
+  position: relative;
+  &::after {
+    content: "";
+    display: block;
+    height: 75px;
+  }
 `;

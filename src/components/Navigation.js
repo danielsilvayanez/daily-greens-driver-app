@@ -17,7 +17,10 @@ export default function Navigation() {
 const Nav = styled.nav`
   display: flex;
   width: 100%;
+  height: 48px;
+  position: fixed;
   bottom: 0;
+  background-color: var(--primaryBGBtnGreen);
 `;
 
 const StyledNavLink = styled(NavLink)`

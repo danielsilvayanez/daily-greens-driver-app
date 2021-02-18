@@ -87,16 +87,16 @@ const StyledSalutation = styled.h1`
 
 const StyledArea = styled.section`
   display: flex;
-  align-items: center;
+  align-items: left;
+  margin: 0 5px;
   flex-direction: column;
 `;
 
 const StyledOverview = styled.section`
-  margin-top: 80px;
+  margin-top: 10px;
   padding: 10px;
   font-size: 1.6em;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   border: 1px solid black;
   border-radius: 25px;
