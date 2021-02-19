@@ -14,13 +14,7 @@ export default function UserBar() {
 
   return (
     <div>
-      {user ? (
-        <Button onClick={logoutFromFirebase}>Logout</Button>
-      ) : (
-        <>
-          <button onClick={() => history.push("/login")}>Login</button> |
-        </>
-      )}
+      {user ? <Button onClick={logoutFromFirebase}>Logout</Button> : undefined}
     </div>
   );
 }
@@ -28,11 +22,12 @@ export default function UserBar() {
 const Button = styled.button`
   position: absolute;
   right: 10px;
-  bottom: 70px;
+  bottom: 55px;
   border-radius: 50%;
-  border: none;
+  border: 1px solid grey;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px;
-  height: 50px;
+  height: 60px;
+  width: 60px;
   background-color: var(--primaryBgWhite);
 `;
