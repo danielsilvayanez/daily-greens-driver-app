@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import Button from './Button'
-import NotesIcon from '../icons/notes-icon.jsx'
-import { patchDelivery } from '../Firebase/services'
-import BoxModal from './BoxModal'
+import React, { useState } from "react";
+import styled from "styled-components";
+import Button from "./Button";
+import NotesIcon from "../icons/notes-icon.jsx";
+import { patchDelivery } from "../Firebase/services";
+import BoxModal from "./BoxModal";
 
 export default function Order({
   delivery,
@@ -17,7 +17,18 @@ export default function Order({
 }) {
   // const [btnDisabled, setBtnDisabled] = useState(true);
 
-  console.log('deliveryDone-->', delivery.done)
+  console.log("deliveryDone-->", delivery.done);
+  const [showModal, setShowModal] = useState(false);
+
+  function handleSubmit(boxNum, smallboxNum) {
+    let newDeliveries = [...deliveries];
+    newDeliveries[index].document.box = Number(boxNum);
+    newDeliveries[index].document.smallbox = Number(smallboxNum);
+    newDeliveries[index].document.done = true;
+    setDeliveries(newDeliveries);
+    setNewindex(index + 1);
+    patchDelivery(documentId, newDeliveries[index].document);
+  }
 
   return (
     <>
@@ -34,7 +45,7 @@ export default function Order({
               <StyledNotes></StyledNotes>
             )}
             <StyledNotes>
-              <StyledPhone>Telefon: {delivery.phone}</StyledPhone>{' '}
+              <StyledPhone>Telefon: {delivery.phone}</StyledPhone>{" "}
             </StyledNotes>
 
             {!delivery.done && (
@@ -43,37 +54,31 @@ export default function Order({
                   btnName="start"
                   btnState={delivery.start}
                   onClick={() => {
-                    let newDeliveries = [...deliveries]
-                    newDeliveries[index].document.start = !delivery.start
-                    setDeliveries(newDeliveries)
-                    patchDelivery(documentId, newDeliveries[index].document)
+                    let newDeliveries = [...deliveries];
+                    newDeliveries[index].document.start = !delivery.start;
+                    setDeliveries(newDeliveries);
+                    patchDelivery(documentId, newDeliveries[index].document);
                   }}
                 />
                 <Button
                   disabledState={!delivery.start}
                   btnName="erledigt"
                   btnState={delivery.done}
-                  onClick={() => (
-                    <BoxModal
-                      handleSubmit={(boxNum, smallboxNum) => {
-                        let newDeliveries = [...deliveries]
-                        newDeliveries[index].document.box = boxNum
-                        newDeliveries[index].document.smallbox = smallboxNum
-                        newDeliveries[index].document.done = true
-                        setDeliveries(newDeliveries)
-                        setNewindex(index + 1)
-                        patchDelivery(documentId, newDeliveries[index].document)
-                      }}
-                    />
-                  )}
+                  onClick={() => setShowModal(!showModal)}
                 />
               </>
+            )}
+            {showModal && (
+              <BoxModal
+                toggleModal={setShowModal}
+                handleSubmit={handleSubmit}
+              />
             )}
           </Container>
         ) : (
           <Container
             onClick={() => {
-              setNewindex(index)
+              setNewindex(index);
             }}
           >
             <div>{delivery.name}</div>
@@ -83,14 +88,14 @@ export default function Order({
         )}
       </StyledDiv>
     </>
-  )
+  );
 }
 const StyledDiv = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
   margin: 10px;
-`
+`;
 
 const Container = styled.div`
   border-radius: 15px;
@@ -112,12 +117,12 @@ const Container = styled.div`
   :hover {
     cursor: pointer;
   }
-`
+`;
 
 const StyledNotesIcon = styled(NotesIcon)`
   position: absolute;
   left: 350px;
-`
+`;
 
 const StyledNotes = styled.div`
   display: grid;
@@ -125,8 +130,8 @@ const StyledNotes = styled.div`
   grid-column-end: 3;
   font-weight: bold;
   border: 1px solid var(-primaryBGBtnGreen;);
-`
+`;
 
 const StyledPhone = styled.span`
   background-image: linear-gradient(#ff9d2f, #ff6126);
-`
+`;
