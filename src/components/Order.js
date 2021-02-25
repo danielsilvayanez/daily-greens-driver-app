@@ -15,9 +15,12 @@ export default function Order({
   details,
   setNewindex,
 }) {
-  // const [btnDisabled, setBtnDisabled] = useState(true);
+  let keys = [];
+  let values = [];
 
-  console.log("deliveryDone-->", delivery.done);
+  keys = Object.keys(delivery.extra);
+  values = Object.values(delivery.extra);
+
   const [showModal, setShowModal] = useState(false);
 
   function handleSubmit(boxNum, smallboxNum) {
@@ -32,7 +35,7 @@ export default function Order({
 
   return (
     <>
-      <StyledDiv>
+      <DeliveryContainer>
         {details ? (
           <Container height="120" background="var(--secondaryBGPurple)">
             <div>{delivery.name}</div>
@@ -45,9 +48,17 @@ export default function Order({
               <StyledNotes></StyledNotes>
             )}
             <StyledNotes>
-              <StyledPhone>Telefon: {delivery.phone}</StyledPhone>{" "}
+              <StyledPhone>Telefon: {delivery.phone}</StyledPhone>
             </StyledNotes>
-
+            <StyledNotes>
+              <div>
+                {keys.map((extrakey, index) => (
+                  <div>
+                    {extrakey}: {values[index]}
+                  </div>
+                ))}
+              </div>
+            </StyledNotes>
             {!delivery.done && (
               <>
                 <Button
@@ -86,15 +97,16 @@ export default function Order({
             {delivery.message && <StyledNotesIcon />}
           </Container>
         )}
-      </StyledDiv>
+      </DeliveryContainer>
     </>
   );
 }
-const StyledDiv = styled.div`
+const DeliveryContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
-  margin: 10px;
+  margin: 10px 0;
+  padding: 0 10px;
 `;
 
 const Container = styled.div`
