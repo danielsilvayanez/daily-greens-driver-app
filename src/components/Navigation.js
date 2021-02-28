@@ -27,7 +27,6 @@ const StyledNavLink = styled(NavLink)`
   display: flex;
   flex-grow: 1;
   border: none;
-  border-radius: 15px;
   margin-right: 2px;
   justify-content: center;
   align-items: center;
