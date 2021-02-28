@@ -37,6 +37,8 @@ export default function Order({
     <DeliveryContainer>
       {details ? (
         <Container>
+          {console.log("delivery!! message -->", delivery.message)}
+          <StyledPhone>Telefon: {delivery.phone}</StyledPhone>
           <div>{delivery.name}</div>
           <div>{delivery.street}</div>
           <div>Tagesessen: {delivery.daymeal}</div>
@@ -46,9 +48,6 @@ export default function Order({
           ) : (
             <StyledNotes></StyledNotes>
           )}
-          <StyledNotes>
-            <StyledPhone>Telefon: {delivery.phone}</StyledPhone>
-          </StyledNotes>
           <StyledExtras>
             <div>--- Extras ---</div>
             <div>
@@ -131,15 +130,27 @@ const Container = styled.div`
 
 const StyledNotesIcon = styled(NotesIcon)`
   position: absolute;
-  left: 350px;
+  top: 15px;
+  left: 14px;
+  font-size: 1.5em;
+`;
+
+const StyledPhone = styled.div`
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-size: 1.5em;
+  margin: 0 0 15px;
+  background-image: linear-gradient(#ff9d2f, #ff6126);
 `;
 
 const StyledNotes = styled.div`
   display: grid;
   grid-column-start: 1;
   grid-column-end: 3;
-  font-weight: bold;
-  border: 1px solid var(-primaryBGBtnGreen);
+  background-image: linear-gradient(#ff9d2f, #ff6126);
+  font-size: 1.5em;
+  margin: 15px 0;
 `;
 
 const StyledExtras = styled.div`
@@ -148,8 +159,7 @@ const StyledExtras = styled.div`
   grid-column-end: 3;
   font-weight: bold;
   background-color: var(--primaryBgWhite);
-`;
-
-const StyledPhone = styled.span`
-  background-image: linear-gradient(#ff9d2f, #ff6126);
+  border: 2px solid var(--secondaryBGPurple);
+  border-radius: 15%;
+  padding: 10px;
 `;

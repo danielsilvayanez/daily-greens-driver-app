@@ -4,9 +4,9 @@ function NotesIcon(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      fill="var(--primaryBGBtnGreen)"
-      height="1em"
+      width="1.2em"
+      fill="var(--secondaryBGPurple)"
+      height="1.5em"
       viewBox="0 0 437.699 437.699"
       {...props}
     >
