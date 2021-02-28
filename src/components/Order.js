@@ -34,31 +34,30 @@ export default function Order({
   }
 
   return (
-    <>
-      <DeliveryContainer>
-        {details ? (
-          <Container height="120" background="var(--secondaryBGPurple)">
-            <div>{delivery.name}</div>
-            <div>{delivery.street}</div>
-            <div>Tagesessen: {delivery.daymeal}</div>
-            <div>Wochenessen: {delivery.weekmeal}</div>
-            {delivery.message ? (
-              <StyledNotes>Notizen: {delivery.message}</StyledNotes>
-            ) : (
-              <StyledNotes></StyledNotes>
-            )}
-            <StyledNotes>
-              <StyledPhone>Telefon: {delivery.phone}</StyledPhone>
-            </StyledNotes>
-            <StyledNotes>
-              <div>
-                {keys.map((extrakey, index) => (
-                  <div>
-                    {extrakey}: {values[index]}
-                  </div>
-                ))}
-              </div>
-            </StyledNotes>
+    <DeliveryContainer>
+      {details ? (
+        <Container>
+          <div>{delivery.name}</div>
+          <div>{delivery.street}</div>
+          <div>Tagesessen: {delivery.daymeal}</div>
+          <div>Wochenessen: {delivery.weekmeal}</div>
+          {delivery.message ? (
+            <StyledNotes>Notizen: {delivery.message}</StyledNotes>
+          ) : (
+            <StyledNotes></StyledNotes>
+          )}
+          <StyledNotes>
+            <StyledPhone>Telefon: {delivery.phone}</StyledPhone>
+          </StyledNotes>
+          <StyledExtras>
+            <div>--- Extras ---</div>
+            <div>
+              {keys.map((extrakey, index) => (
+                <div>
+                  {extrakey}: {values[index]}
+                </div>
+              ))}
+            </div>
             {!delivery.done && (
               <>
                 <Button
@@ -79,42 +78,41 @@ export default function Order({
                 />
               </>
             )}
-            {showModal && (
-              <BoxModal
-                toggleModal={setShowModal}
-                handleSubmit={handleSubmit}
-              />
-            )}
-          </Container>
-        ) : (
-          <Container
-            onClick={() => {
-              setNewindex(index);
-            }}
-          >
-            <div>{delivery.name}</div>
-            <div>{delivery.street}</div>
-            {delivery.message && <StyledNotesIcon />}
-          </Container>
-        )}
-      </DeliveryContainer>
-    </>
+          </StyledExtras>
+          {showModal && (
+            <BoxModal toggleModal={setShowModal} handleSubmit={handleSubmit} />
+          )}
+        </Container>
+      ) : (
+        <Container
+          onClick={() => {
+            setNewindex(index);
+          }}
+        >
+          <div>{delivery.name}</div>
+          <div>{delivery.street}</div>
+          {delivery.message && <StyledNotesIcon />}
+        </Container>
+      )}
+    </DeliveryContainer>
   );
 }
 const DeliveryContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
-  margin: 10px 0;
+  margin-top: 10px;
   padding: 0 10px;
+  position: relative;
 `;
 
 const Container = styled.div`
-  border-radius: 15px;
-  position: relative;
   display: grid;
+  border-radius: 15px;
+  border: 2px solid var(--secondaryBGPurple);
   grid-template-columns: 1fr 1fr;
-  height: ${(props) => props.height || 60}px;
+  height: auto;
+  padding: 20px;
   width: 100%;
   justify-content: space-around;
   align-items: center;
@@ -141,7 +139,15 @@ const StyledNotes = styled.div`
   grid-column-start: 1;
   grid-column-end: 3;
   font-weight: bold;
-  border: 1px solid var(-primaryBGBtnGreen;);
+  border: 1px solid var(-primaryBGBtnGreen);
+`;
+
+const StyledExtras = styled.div`
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-weight: bold;
+  background-color: var(--primaryBgWhite);
 `;
 
 const StyledPhone = styled.span`

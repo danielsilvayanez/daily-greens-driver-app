@@ -19,7 +19,7 @@ export default function List({ deliveries, setDeliveries }) {
       {deliveries.map(
         (delivery, index) =>
           delivery.document.done && (
-            <>
+            <OrderContainer>
               <Order
                 delivery={delivery.document}
                 deliveries={deliveries}
@@ -43,19 +43,29 @@ export default function List({ deliveries, setDeliveries }) {
                   );
                 }}
               />
-            </>
+            </OrderContainer>
           )
       )}
     </Orderlist>
   );
 }
 
+const OrderContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 const Orderlist = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* padding: 10px; */
 `;
 
 const RevertArrow = styled(FontAwesomeIcon)`
-  font-size: 30px;
+  font-size: 50px;
+  color: var(--secondaryBGPurple);
+  position: absolute;
+  right: 0;
+  top: 0px;
 `;
