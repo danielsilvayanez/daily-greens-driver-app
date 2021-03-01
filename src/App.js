@@ -37,7 +37,7 @@ export default function App() {
     <LoginContext.Provider value={{ user, firebaseApp }}>
       {user !== null ? (
         <AppGrid>
-          <Header UserBar={UserBar} />
+          <Header />
           <Main>
             <Switch>
               <Route path="/list">
@@ -51,6 +51,7 @@ export default function App() {
               </Route>
             </Switch>
           </Main>
+          <UserBar />
           <Navigation />
         </AppGrid>
       ) : (
@@ -76,6 +77,7 @@ const AppGrid = styled.div`
 const Main = styled.main`
   overflow-y: scroll;
   position: relative;
+
   &::after {
     content: "";
     display: block;

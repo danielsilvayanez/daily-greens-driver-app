@@ -13,15 +13,19 @@ export default function UserBar() {
   }
 
   return (
-    <div>
+    <ButtonContainer>
       {user ? <Button onClick={logoutFromFirebase}>Logout</Button> : undefined}
-    </div>
+    </ButtonContainer>
   );
 }
+const ButtonContainer = styled.div`
+  margin: 15px 5px 15px 0;
+  display: flex;
+  justify-content: flex-end;
+`;
 
 const Button = styled.button`
   position: absolute;
-  right: 10px;
   bottom: 55px;
   border-radius: 50%;
   border: 1px solid grey;

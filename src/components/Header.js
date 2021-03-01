@@ -5,14 +5,13 @@ import getDate from "../services/getDate";
 
 let date = getDate();
 
-export const Header = ({ UserBar }) => {
+export const Header = () => {
   return (
     <>
       <StyledHeader>
         <img src={logo} alt="" width="130" height="50" />
         <StyledDiv2>
           <h2>{date}</h2>
-          <UserBar />
         </StyledDiv2>
       </StyledHeader>
     </>
