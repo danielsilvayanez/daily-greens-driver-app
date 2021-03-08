@@ -37,7 +37,6 @@ export default function Order({
     <DeliveryContainer>
       {details ? (
         <Container>
-          {console.log("delivery!! message -->", delivery.message)}
           <StyledPhone>Telefon: {delivery.phone}</StyledPhone>
           <div>{delivery.name}</div>
           <div>{delivery.street}</div>
