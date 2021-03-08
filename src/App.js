@@ -21,17 +21,27 @@ export default function App() {
   useEffect(() => {
     user &&
       fetchDeliveries(user.uid).then((dbResult) => {
-        setDeliveries(dbResult);
+        setDeliveries(dbResult.sort(compare));
       });
   }, [user]);
 
   useEffect(() => {
     deliveries.length > 0 &&
       console.log("deliveries----->", deliveries[0].documentId);
-    // patchDeliveries(???, ????).then((dbResult) => {
-    //   setDeliveries(dbResult);
-    // });
   }, [deliveries]);
+
+  function compare(a, b) {
+    const stopA = a.document.stop;
+    const stopB = b.document.stop;
+
+    let comparison = 0;
+    if (stopA > stopB) {
+      comparison = 1;
+    } else if (stopA < stopB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
 
   return (
     <LoginContext.Provider value={{ user, firebaseApp }}>
