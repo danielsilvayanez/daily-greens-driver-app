@@ -13,6 +13,7 @@ export default function Order({
   documentId,
   deliveries,
   details,
+  meals,
   setNewindex,
 }) {
   let keys = [];
@@ -40,8 +41,27 @@ export default function Order({
           <StyledPhone>Telefon: {delivery.phone}</StyledPhone>
           <div>{delivery.name}</div>
           <div>{delivery.street}</div>
-          <div>Tagesessen: {delivery.daymeal}</div>
-          <div>Wochenessen: {delivery.weekmeal}</div>
+          {delivery.daymeal > 0 && <div>Tagesessen: {delivery.daymeal}</div>}
+          {delivery.weekmeal1 > 0 && (
+            <div>
+              {meals.document.weekmeal1}: {delivery.weekmeal1}
+            </div>
+          )}
+          {delivery.document.weekmeal2 > 0 && (
+            <div>
+              {meals.document.weekmeal2}: {delivery.weekmeal2}
+            </div>
+          )}
+          {delivery.dessert1 > 0 && (
+            <div>
+              {meals.document.dessert1}: {delivery.dessert1}
+            </div>
+          )}
+          {delivery.dessert2 > 0 && (
+            <div>
+              {meals.document.dessert2}: {delivery.dessert2}
+            </div>
+          )}
           {delivery.message ? (
             <StyledNotes>Notizen: {delivery.message}</StyledNotes>
           ) : (

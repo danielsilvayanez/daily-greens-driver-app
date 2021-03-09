@@ -12,13 +12,17 @@ import LoginContext from "./components/auth/loginContext";
 import firebaseApp from "./Firebase/index";
 import UserBar from "./components/auth/UserBar";
 import Login from "./components/auth/Login";
-import { fetchDeliveries } from "./Firebase/services";
+import { fetchDeliveries, fetchMeals } from "./Firebase/services";
 
 export default function App() {
   const [deliveries, setDeliveries] = useState([]);
   const user = useAuth();
+  const [meals, setMeals] = useState({});
 
   useEffect(() => {
+    fetchMeals().then((dbResult) => {
+      setMeals(dbResult[0]);
+    });
     user &&
       fetchDeliveries(user.uid).then((dbResult) => {
         setDeliveries(dbResult.sort(compare));
@@ -51,7 +55,11 @@ export default function App() {
           <Main>
             <Switch>
               <Route path="/list">
-                <List deliveries={deliveries} setDeliveries={setDeliveries} />
+                <List
+                  meals={meals}
+                  deliveries={deliveries}
+                  setDeliveries={setDeliveries}
+                />
               </Route>
               <Route path="/done">
                 <Done deliveries={deliveries} setDeliveries={setDeliveries} />
