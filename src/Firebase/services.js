@@ -1,4 +1,4 @@
-import { deliveryRef } from "./index";
+import { deliveryRef, mealRef } from "./index";
 import timestamp from "time-stamp";
 
 const currentDate = timestamp("YYYY-MM-DD");
@@ -32,6 +32,17 @@ export function patchDelivery(documentId, data) {
           }
         });
     });
+}
+
+export async function fetchMeals() {
+  const dbResult = await mealRef.get().then((data) => {
+    const mealData = [];
+    data.forEach((doc) => {
+      mealData.push({ document: doc.data(), documentId: doc.id });
+    });
+    return mealData;
+  });
+  return dbResult;
 }
 
 // export function postDelivery(data) {

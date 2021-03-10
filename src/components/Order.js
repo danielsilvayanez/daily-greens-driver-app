@@ -1,82 +1,97 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Button from "./Button";
-import NotesIcon from "../icons/notes-icon.jsx";
-import { patchDelivery } from "../Firebase/services";
-import BoxModal from "./BoxModal";
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import Button from './Button'
+import NotesIcon from '../icons/notes-icon.jsx'
+import { patchDelivery } from '../Firebase/services'
+import BoxModal from './BoxModal'
 
 export default function Order({
   delivery,
-  disabledState,
   setDeliveries,
   index,
   documentId,
   deliveries,
   details,
+  meals,
   setNewindex,
 }) {
-  let keys = [];
-  let values = [];
+  let keys = []
+  let values = []
 
-  keys = Object.keys(delivery.extra);
-  values = Object.values(delivery.extra);
-
-  const [showModal, setShowModal] = useState(false);
+  keys = Object.keys(delivery.extra)
+  values = Object.values(delivery.extra)
+  let mealKeys = []
+  let mealValues = []
+  //mealKeys = Object.keys(meals.document)
+  //console.log(mealKeys)
+  //mealValues = Object.values(meals.document)
+  const [showModal, setShowModal] = useState(false)
 
   function handleSubmit(boxNum, smallboxNum) {
-    let newDeliveries = [...deliveries];
-    newDeliveries[index].document.box = Number(boxNum);
-    newDeliveries[index].document.smallbox = Number(smallboxNum);
-    newDeliveries[index].document.done = true;
-    setDeliveries(newDeliveries);
-    setNewindex(index + 1);
-    patchDelivery(documentId, newDeliveries[index].document);
+    let newDeliveries = [...deliveries]
+    newDeliveries[index].document.box = Number(boxNum)
+    newDeliveries[index].document.smallbox = Number(smallboxNum)
+    newDeliveries[index].document.done = true
+    setDeliveries(newDeliveries)
+    setNewindex(index + 1)
+    patchDelivery(documentId, newDeliveries[index].document)
   }
 
   return (
     <DeliveryContainer>
       {details ? (
         <Container>
-          <StyledPhone>Telefon: {delivery.phone}</StyledPhone>
+          {delivery.message ? (
+            <StyledNotes>
+              <p>Telefon: {delivery.phone}</p>
+              <p>Notizen: {delivery.message}</p>
+            </StyledNotes>
+          ) : (
+            <StyledPhone>
+              <p>Telefon: {delivery.phone}</p>
+            </StyledPhone>
+          )}
           <div>{delivery.name}</div>
           <div>{delivery.street}</div>
-          <div>Tagesessen: {delivery.daymeal}</div>
-          <div>Wochenessen: {delivery.weekmeal}</div>
-          {delivery.message ? (
-            <StyledNotes>Notizen: {delivery.message}</StyledNotes>
-          ) : (
-            <StyledNotes></StyledNotes>
-          )}
-          <StyledExtras>
-            <div>--- Extras ---</div>
-            <div>
-              {keys.map((extrakey, index) => (
+          {delivery.daymeal > 0 && <div>Tagesessen: {delivery.daymeal}</div>}
+          {Object.keys(meals.document).map(
+            (meal, index) =>
+              delivery[meal] > 0 && (
                 <div>
-                  {extrakey}: {values[index]}
+                  {Object.values(meals.document)[index]}: {delivery[meal]}
                 </div>
-              ))}
-            </div>
-            {!delivery.done && (
-              <>
-                <Button
-                  btnName="start"
-                  btnState={delivery.start}
-                  onClick={() => {
-                    let newDeliveries = [...deliveries];
-                    newDeliveries[index].document.start = !delivery.start;
-                    setDeliveries(newDeliveries);
-                    patchDelivery(documentId, newDeliveries[index].document);
-                  }}
-                />
-                <Button
-                  disabledState={!delivery.start}
-                  btnName="erledigt"
-                  btnState={delivery.done}
-                  onClick={() => setShowModal(!showModal)}
-                />
-              </>
-            )}
+              )
+          )}
+
+          <StyledExtras>
+            {keys.map((extrakey, index) => (
+              <div>
+                {extrakey}: {values[index]}
+              </div>
+            ))}
           </StyledExtras>
+
+          {!delivery.done && (
+            <>
+              <Button
+                btnName="start"
+                btnState={delivery.start}
+                onClick={() => {
+                  let newDeliveries = [...deliveries]
+                  newDeliveries[index].document.start = !delivery.start
+                  setDeliveries(newDeliveries)
+                  patchDelivery(documentId, newDeliveries[index].document)
+                }}
+              />
+              <Button
+                disabledState={!delivery.start}
+                btnName="erledigt"
+                btnState={delivery.done}
+                onClick={() => setShowModal(!showModal)}
+              />
+            </>
+          )}
+
           {showModal && (
             <BoxModal toggleModal={setShowModal} handleSubmit={handleSubmit} />
           )}
@@ -84,7 +99,7 @@ export default function Order({
       ) : (
         <Container
           onClick={() => {
-            setNewindex(index);
+            setNewindex(index)
           }}
         >
           <div>{delivery.name}</div>
@@ -93,7 +108,7 @@ export default function Order({
         </Container>
       )}
     </DeliveryContainer>
-  );
+  )
 }
 const DeliveryContainer = styled.div`
   display: grid;
@@ -102,7 +117,7 @@ const DeliveryContainer = styled.div`
   margin-top: 10px;
   padding: 0 10px;
   position: relative;
-`;
+`
 
 const Container = styled.div`
   display: grid;
@@ -125,14 +140,14 @@ const Container = styled.div`
   :hover {
     cursor: pointer;
   }
-`;
+`
 
 const StyledNotesIcon = styled(NotesIcon)`
   position: absolute;
   top: 15px;
   left: 14px;
   font-size: 1.5em;
-`;
+`
 
 const StyledPhone = styled.div`
   display: grid;
@@ -141,7 +156,7 @@ const StyledPhone = styled.div`
   font-size: 1.5em;
   margin: 0 0 15px;
   background-image: linear-gradient(#ff9d2f, #ff6126);
-`;
+`
 
 const StyledNotes = styled.div`
   display: grid;
@@ -150,7 +165,7 @@ const StyledNotes = styled.div`
   background-image: linear-gradient(#ff9d2f, #ff6126);
   font-size: 1.5em;
   margin: 15px 0;
-`;
+`
 
 const StyledExtras = styled.div`
   display: grid;
@@ -158,7 +173,6 @@ const StyledExtras = styled.div`
   grid-column-end: 3;
   font-weight: bold;
   background-color: var(--primaryBgWhite);
-  border: 2px solid var(--secondaryBGPurple);
-  border-radius: 15%;
+
   padding: 10px;
-`;
+`

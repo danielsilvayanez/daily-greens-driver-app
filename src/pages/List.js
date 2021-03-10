@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Order from "../components/Order";
 import styled from "styled-components";
 
-export default function List({ deliveries, setDeliveries }) {
+export default function List({ deliveries, setDeliveries, meals }) {
   const [newIndex, setNewindex] = useState(0);
   function showDetails(index) {
     if (index === newIndex) {
@@ -25,6 +25,7 @@ export default function List({ deliveries, setDeliveries }) {
               setNewindex={setNewindex}
               key={delivery.documentId}
               documentId={delivery.documentId}
+              meals={meals}
             />
           )
       )}

@@ -11,3 +11,4 @@ const firebaseInit = () => {
 export default firebaseInit();
 export const db = firebaseApp.firestore();
 export const deliveryRef = db.collection("Deliveries");
+export const mealRef = db.collection("Meals");
