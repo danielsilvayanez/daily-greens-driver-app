@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import LoginContext from "../components/auth/loginContext";
 
-export default function Home({ deliveries }) {
+export default function Home({ deliveries, meals }) {
   const { user } = useContext(LoginContext);
   const reducer = (a, b) => a + b;
   const [dayMealDailyTotal, setDayMealDailyTotal] = useState(0);
-  const [weekMealDailyTotal, setWeekMealDailyTotal] = useState(0);
-  const [boxDailyTotal, setBoxDailyTotal] = useState(0);
+  const [dailyTotal, setDailyTotal] = useState([0, 0, 0, 0]);
   const [boxSmallDailyTotal, setBoxSmallDailyTotal] = useState(0);
   const [extras, setExtras] = useState([]);
+  const [boxDailyTotal, setBoxDailyTotal] = useState(0);
 
   useEffect(() => {
     if (deliveries.length > 0) {
@@ -17,9 +17,20 @@ export default function Home({ deliveries }) {
         deliveries.map((delivery) => delivery.document.daymeal).reduce(reducer)
       );
 
-      setWeekMealDailyTotal(
-        deliveries.map((delivery) => delivery.document.weekmeal).reduce(reducer)
-      );
+      setDailyTotal([
+        deliveries
+          .map((delivery) => delivery.document.dessert1)
+          .reduce(reducer),
+        deliveries
+          .map((delivery) => delivery.document.dessert2)
+          .reduce(reducer),
+        deliveries
+          .map((delivery) => delivery.document.weekmeal1)
+          .reduce(reducer),
+        deliveries
+          .map((delivery) => delivery.document.weekmeal2)
+          .reduce(reducer),
+      ]);
 
       setBoxDailyTotal(
         deliveries.map((delivery) => delivery.document.box).reduce(reducer)
@@ -31,6 +42,8 @@ export default function Home({ deliveries }) {
       setExtras(Object.entries(getExtras()));
     }
   }, [deliveries]);
+
+  console.log("meeeals", meals);
 
   function getExtras() {
     const keys = [];
@@ -60,7 +73,12 @@ export default function Home({ deliveries }) {
       <StyledOverview>
         <h3>Dashboard</h3>
         <p>Tagesgericht gesamt: {dayMealDailyTotal}</p>
-        <p>Wochengericht gesamt: {weekMealDailyTotal}</p>
+        {meals.document &&
+          Object.keys(meals.document).map((meal, index) => (
+            <div>
+              {Object.values(meals.document)[index]}: {dailyTotal[index]}
+            </div>
+          ))}
         <br />
         <h4>Extra/s: </h4>
 
