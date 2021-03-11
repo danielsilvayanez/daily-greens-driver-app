@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { patchDelivery } from "../Firebase/services";
 
-export default function List({ deliveries, setDeliveries }) {
+export default function List({ deliveries, setDeliveries, meals }) {
   const [newIndex, setNewindex] = useState(0);
   function showDetails(index) {
     if (index === newIndex) {
@@ -29,6 +29,7 @@ export default function List({ deliveries, setDeliveries }) {
                 setNewindex={setNewindex}
                 key={delivery.documentId}
                 documentId={delivery.documentId}
+                meals={meals}
               />
 
               <RevertArrow

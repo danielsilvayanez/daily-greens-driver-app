@@ -57,7 +57,11 @@ export default function App() {
                 />
               </Route>
               <Route path="/done">
-                <Done deliveries={deliveries} setDeliveries={setDeliveries} />
+                <Done
+                  deliveries={deliveries}
+                  setDeliveries={setDeliveries}
+                  meals={meals}
+                />
               </Route>
               <Route path="/">
                 <Home deliveries={deliveries} meals={meals} />
