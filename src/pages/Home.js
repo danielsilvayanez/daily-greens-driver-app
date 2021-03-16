@@ -80,7 +80,6 @@ export default function Home({ deliveries, meals }) {
             </div>
           ))}
         <br />
-        <h4>Extra/s: </h4>
 
         {extras.map((extra) => (
           <p>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import NotesIcon from "../icons/notes-icon.jsx";
+import Star from "../icons/star-icon";
 import { patchDelivery } from "../Firebase/services";
 import BoxModal from "./BoxModal";
 
@@ -20,11 +21,7 @@ export default function Order({
 
   keys = Object.keys(delivery.extra);
   values = Object.values(delivery.extra);
-  let mealKeys = [];
-  let mealValues = [];
-  //mealKeys = Object.keys(meals.document)
-  //console.log(mealKeys)
-  //mealValues = Object.values(meals.document)
+
   const [showModal, setShowModal] = useState(false);
 
   function handleSubmit(boxNum, smallboxNum) {
@@ -41,6 +38,7 @@ export default function Order({
     <DeliveryContainer>
       {details ? (
         <Container>
+          {delivery.newcustomer && <StyledStar />}
           {delivery.message ? (
             <StyledNotes>
               <p>Telefon: {delivery.phone}</p>
@@ -114,6 +112,7 @@ export default function Order({
             setNewindex(index);
           }}
         >
+          {delivery.newcustomer && <StyledStar />}
           <div>{delivery.name}</div>
           <div>{delivery.street}</div>
           {delivery.message && <StyledNotesIcon />}
@@ -129,6 +128,12 @@ const DeliveryContainer = styled.div`
   margin-top: 10px;
   padding: 0 10px;
   position: relative;
+`;
+
+const StyledStar = styled(Star)`
+  position: absolute;
+  left: 15px;
+  margin: 5px;
 `;
 
 const Container = styled.div`
