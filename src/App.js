@@ -4,18 +4,23 @@ import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import List from "./pages/List";
 import Done from "./pages/Done";
+import NextDay from "./pages/NextDay";
 import styled from "styled-components";
 import { Header } from "./components/Header";
-import mockDeliveries from "./defaultData.json";
 import useAuth from "./components/auth/useAuth";
 import LoginContext from "./components/auth/loginContext";
 import firebaseApp from "./Firebase/index";
 import UserBar from "./components/auth/UserBar";
 import Login from "./components/auth/Login";
-import { fetchDeliveries, fetchMeals } from "./Firebase/services";
+import {
+  fetchDeliveries,
+  fetchMeals,
+  fetchNextDayDeliveries,
+} from "./Firebase/services";
 
 export default function App() {
   const [deliveries, setDeliveries] = useState([]);
+  const [nextDayDeliveries, setnextDayDeliveries] = useState([]);
   const user = useAuth();
   const [meals, setMeals] = useState({});
 
@@ -26,6 +31,10 @@ export default function App() {
     user &&
       fetchDeliveries(user.uid).then((dbResult) => {
         setDeliveries(dbResult.sort(compare));
+      });
+    user &&
+      fetchNextDayDeliveries(user.uid).then((dbResult) => {
+        setnextDayDeliveries(dbResult.sort(compare));
       });
   }, [user]);
 
@@ -59,6 +68,13 @@ export default function App() {
               <Route path="/done">
                 <Done
                   deliveries={deliveries}
+                  setDeliveries={setDeliveries}
+                  meals={meals}
+                />
+              </Route>
+              <Route path="/next">
+                <NextDay
+                  deliveries={nextDayDeliveries}
                   setDeliveries={setDeliveries}
                   meals={meals}
                 />
