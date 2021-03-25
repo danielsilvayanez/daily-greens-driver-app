@@ -14,30 +14,36 @@ export default function Home({ deliveries, meals }) {
   useEffect(() => {
     if (deliveries.length > 0) {
       setDayMealDailyTotal(
-        deliveries.map((delivery) => delivery.document.daymeal).reduce(reducer)
+        deliveries
+          .map((delivery) => Number(delivery.document.daymeal))
+          .reduce(reducer)
       );
 
       setDailyTotal([
         deliveries
-          .map((delivery) => delivery.document.dessert1)
+          .map((delivery) => Number(delivery.document.dessert1))
           .reduce(reducer),
         deliveries
-          .map((delivery) => delivery.document.dessert2)
+          .map((delivery) => Number(delivery.document.dessert2))
           .reduce(reducer),
         deliveries
-          .map((delivery) => delivery.document.weekmeal1)
+          .map((delivery) => Number(delivery.document.weekmeal1))
           .reduce(reducer),
         deliveries
-          .map((delivery) => delivery.document.weekmeal2)
+          .map((delivery) => Number(delivery.document.weekmeal2))
           .reduce(reducer),
       ]);
 
       setBoxDailyTotal(
-        deliveries.map((delivery) => delivery.document.box).reduce(reducer)
+        deliveries
+          .map((delivery) => Number(delivery.document.box))
+          .reduce(reducer)
       );
 
       setBoxSmallDailyTotal(
-        deliveries.map((delivery) => delivery.document.smallbox).reduce(reducer)
+        deliveries
+          .map((delivery) => Number(delivery.document.smallbox))
+          .reduce(reducer)
       );
       setExtras(Object.entries(getExtras()));
     }
@@ -57,8 +63,11 @@ export default function Home({ deliveries, meals }) {
 
     keys.map((key, index) => {
       key in cache
-        ? (cache = { ...cache, [key]: cache[key] + values[index] })
-        : (cache = { ...cache, [key]: values[index] });
+        ? (cache = {
+            ...cache,
+            [key]: Number(cache[key]) + Number(values[index]),
+          })
+        : (cache = { ...cache, [key]: Number(values[index]) });
     });
     return cache;
   }

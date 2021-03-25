@@ -10,6 +10,7 @@ export default function Navigation() {
       </StyledNavLink>
       <StyledNavLink to="/list">Aufträge</StyledNavLink>
       <StyledNavLink to="/done">Erledigt</StyledNavLink>
+      <StyledNavLink to="/next">Morgen</StyledNavLink>
     </Nav>
   );
 }

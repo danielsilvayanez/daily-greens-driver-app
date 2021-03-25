@@ -2,11 +2,34 @@ import { deliveryRef, mealRef } from "./index";
 import timestamp from "time-stamp";
 
 const currentDate = timestamp("YYYY-MM-DD");
-console.log(timestamp("YYYY-MM-DD"));
+
+const tomorrow = new Date(86400000 + +new Date());
+const nextDay =
+  tomorrow.getFullYear() +
+  "-" +
+  ("0" + (tomorrow.getMonth() + 1)).slice(-2) +
+  "-" +
+  ("0" + tomorrow.getDate()).slice(-2);
+
 export async function fetchDeliveries(userID) {
   const dbResult = await deliveryRef
     .where("driverId", "==", userID)
     .where("date", "==", currentDate)
+    .get()
+    .then((data) => {
+      const deliveryData = [];
+      data.forEach((doc) => {
+        deliveryData.push({ document: doc.data(), documentId: doc.id });
+      });
+      return deliveryData;
+    });
+  return dbResult;
+}
+
+export async function fetchNextDayDeliveries(userID) {
+  const dbResult = await deliveryRef
+    .where("driverId", "==", userID)
+    .where("date", "==", nextDay)
     .get()
     .then((data) => {
       const deliveryData = [];
