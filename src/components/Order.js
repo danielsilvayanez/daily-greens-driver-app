@@ -39,29 +39,28 @@ export default function Order({
       {details ? (
         <Container>
           {delivery.newcustomer && <StyledStar />}
-          {delivery.message ? (
+          <StyledNotes>
+            <h2>{delivery.name}</h2>
+          </StyledNotes>
+          {delivery.message && (
             <StyledNotes>
-              <p>Telefon: {delivery.phone}</p>
+              <StyledDivider>
+                <hr></hr>
+              </StyledDivider>
               <p>Notizen: {delivery.message}</p>
+              <StyledDivider>
+                <hr></hr>
+              </StyledDivider>
             </StyledNotes>
-          ) : (
-            <StyledPhone>
-              <p>Telefon: {delivery.phone}</p>
-            </StyledPhone>
           )}
-          <div>{delivery.name}</div>
           <div>{delivery.street}</div>
-          <StyledDivider>
-            <hr></hr>
-          </StyledDivider>
+          <div>{delivery.phone}</div>
+
           {delivery.daymeal > 0 && (
             <StyledExtras>
               <div>Tagesessen: {delivery.daymeal}</div>
             </StyledExtras>
           )}
-          <StyledDivider>
-            <hr></hr>
-          </StyledDivider>
           {Object.keys(meals.document).map(
             (meal, index) =>
               delivery[meal] > 0 && (
@@ -166,20 +165,19 @@ const StyledNotesIcon = styled(NotesIcon)`
   font-size: 1.5em;
 `;
 
-const StyledPhone = styled.div`
-  display: grid;
-  grid-column-start: 1;
-  grid-column-end: 3;
-  font-size: 1.5em;
-  margin: 0 0 15px;
-  background-image: linear-gradient(#ff9d2f, #ff6126);
-`;
+// const StyledPhone = styled.div`
+//   display: grid;
+//   grid-column-start: 1;
+//   grid-column-end: 3;
+//   font-size: 1.5em;
+//   margin: 0 0 15px;
+//   background-image: linear-gradient(#ff9d2f, #ff6126);
+// `;
 
 const StyledNotes = styled.div`
   display: grid;
   grid-column-start: 1;
   grid-column-end: 3;
-  background-image: linear-gradient(#ff9d2f, #ff6126);
   font-size: 1.5em;
   margin: 15px 0;
 `;
