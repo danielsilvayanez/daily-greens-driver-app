@@ -6,7 +6,10 @@ export default function Home({ deliveries, meals }) {
   const { user } = useContext(LoginContext);
   const reducer = (a, b) => a + b;
   const [dayMealDailyTotal, setDayMealDailyTotal] = useState(0);
-  const [dailyTotal, setDailyTotal] = useState([0, 0, 0, 0]);
+  const [dailyWeekMeal1Total, setdailyWeekMeal1Total] = useState(0);
+  const [dailyWeekMeal2Total, setdailyWeekMeal2Total] = useState(0);
+  const [dailyDessert1Total, setdailyDessert1Total] = useState(0);
+  const [dailyDessert2Total, setdailyDessert2Total] = useState(0);
   const [boxSmallDailyTotal, setBoxSmallDailyTotal] = useState(0);
   const [extras, setExtras] = useState([]);
   const [boxDailyTotal, setBoxDailyTotal] = useState(0);
@@ -19,20 +22,29 @@ export default function Home({ deliveries, meals }) {
           .reduce(reducer)
       );
 
-      setDailyTotal([
-        deliveries
-          .map((delivery) => Number(delivery.document.dessert1))
-          .reduce(reducer),
-        deliveries
-          .map((delivery) => Number(delivery.document.dessert2))
-          .reduce(reducer),
+      setdailyWeekMeal1Total(
         deliveries
           .map((delivery) => Number(delivery.document.weekmeal1))
-          .reduce(reducer),
+          .reduce(reducer)
+      );
+
+      setdailyWeekMeal2Total(
         deliveries
           .map((delivery) => Number(delivery.document.weekmeal2))
-          .reduce(reducer),
-      ]);
+          .reduce(reducer)
+      );
+
+      setdailyDessert1Total(
+        deliveries
+          .map((delivery) => Number(delivery.document.dessert1))
+          .reduce(reducer)
+      );
+
+      setdailyDessert2Total(
+        deliveries
+          .map((delivery) => Number(delivery.document.dessert2))
+          .reduce(reducer)
+      );
 
       setBoxDailyTotal(
         deliveries
@@ -49,7 +61,7 @@ export default function Home({ deliveries, meals }) {
     }
   }, [deliveries]);
 
-  console.log("meeeals", meals);
+  console.log("meeeals", deliveries);
 
   function getExtras() {
     const keys = [];
@@ -80,16 +92,28 @@ export default function Home({ deliveries, meals }) {
         ) : null}
       </div>
       <StyledOverview>
-        <h3>Dashboard</h3>
-        <p>Tagesgericht gesamt: {dayMealDailyTotal}</p>
-        {meals.document &&
-          Object.keys(meals.document).map((meal, index) => (
-            <div>
-              {Object.values(meals.document)[index]}: {dailyTotal[index]}
-            </div>
-          ))}
+        <p>Tagesgerichte: {dayMealDailyTotal}</p>
+        {meals?.document && (
+          <p>
+            {meals?.document?.weekmeal1} :{dailyWeekMeal1Total}
+          </p>
+        )}
+        {meals?.document && (
+          <p>
+            {meals?.document?.weekmeal2} :{dailyWeekMeal2Total}
+          </p>
+        )}
+        {meals?.document && (
+          <p>
+            {meals?.document?.dessert1} :{dailyDessert1Total}
+          </p>
+        )}
+        {meals?.document && (
+          <p>
+            {meals?.document?.dessert2} :{dailyDessert2Total}
+          </p>
+        )}
         <br />
-
         {extras.map((extra) => (
           <p>
             {extra[0]}: {extra[1]}
@@ -97,9 +121,9 @@ export default function Home({ deliveries, meals }) {
         ))}
       </StyledOverview>
       <StyledOverview>
-        <h3>Pfandboxen Retour</h3>
-        <p>Pfandboxen normal zurück: {boxDailyTotal}</p>
-        <p>Pfandboxen klein zurück: {boxSmallDailyTotal}</p>
+        <h3>Rücknahme Pfand</h3>
+        <p>Boxen groß: {boxDailyTotal}</p>
+        <p>Boxen klein: {boxSmallDailyTotal}</p>
       </StyledOverview>
     </StyledArea>
   );
