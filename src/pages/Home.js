@@ -95,22 +95,22 @@ export default function Home({ deliveries, meals }) {
         <p>Tagesgerichte: {dayMealDailyTotal}</p>
         {meals?.document && (
           <p>
-            {meals?.document?.weekmeal1} :{dailyWeekMeal1Total}
+            {meals?.document?.weekmeal1}: {dailyWeekMeal1Total}
           </p>
         )}
         {meals?.document && (
           <p>
-            {meals?.document?.weekmeal2} :{dailyWeekMeal2Total}
+            {meals?.document?.weekmeal2}: {dailyWeekMeal2Total}
           </p>
         )}
         {meals?.document && (
           <p>
-            {meals?.document?.dessert1} :{dailyDessert1Total}
+            {meals?.document?.dessert1}: {dailyDessert1Total}
           </p>
         )}
         {meals?.document && (
           <p>
-            {meals?.document?.dessert2} :{dailyDessert2Total}
+            {meals?.document?.dessert2}: {dailyDessert2Total}
           </p>
         )}
         <br />
