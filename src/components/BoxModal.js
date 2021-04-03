@@ -61,7 +61,8 @@ const ModalContainer = styled.div`
   background-color: var(--primaryBgWhite);
   border-radius: 15px;
   position: absolute;
-  top: 30%;
+  z-index: 999;
+  top: 0;
   margin: 0;
   width: 100%;
   padding: 10px;
