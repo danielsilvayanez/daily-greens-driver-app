@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 export default function BoxModal({ handleSubmit, toggleModal }) {
-  const [box, setBox] = useState({ bigbox: 0, smallbox: 0 });
-
-  useEffect(() => {
-    console.log("big and small boxes", box);
-  }, [box]);
+  const [box, setBox] = useState({ bigbox: 0, smallbox: 0, drivermessage: "" });
 
   return (
     <ModalContainer>
@@ -33,11 +29,19 @@ export default function BoxModal({ handleSubmit, toggleModal }) {
             size="2"
           />
         </label>
+        <label>
+          Nachricht
+          <input
+            type="textarea"
+            onChange={handleChange}
+            name="drivermessage"
+            value={box.driverMessage}
+          />
+        </label>
       </form>
       <Button
         onClick={() => {
-          console.log("------>", box.bigbox, box.smallbox);
-          handleSubmit(box.bigbox, box.smallbox);
+          handleSubmit(box.bigbox, box.smallbox, box.drivermessage);
           toggleModal(false);
         }}
       >
