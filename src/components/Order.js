@@ -24,10 +24,11 @@ export default function Order({
 
   const [showModal, setShowModal] = useState(false);
 
-  function handleSubmit(boxNum, smallboxNum) {
+  function handleSubmit(boxNum, smallboxNum, drivermessage) {
     let newDeliveries = [...deliveries];
     newDeliveries[index].document.box = Number(boxNum);
     newDeliveries[index].document.smallbox = Number(smallboxNum);
+    newDeliveries[index].document.drivermessage = drivermessage;
     newDeliveries[index].document.done = true;
     setDeliveries(newDeliveries);
     setNewindex(index + 1);
@@ -47,7 +48,10 @@ export default function Order({
               <StyledDivider>
                 <hr></hr>
               </StyledDivider>
-              <p>Notizen: {delivery.message}</p>
+              <p>
+                Notizen:{" "}
+                <ImportantMessage>"{delivery.message}"</ImportantMessage>
+              </p>
               <StyledDivider>
                 <hr></hr>
               </StyledDivider>
@@ -55,7 +59,6 @@ export default function Order({
           )}
           <div>{delivery.street}</div>
           <div>{delivery.phone}</div>
-
           {delivery.daymeal > 0 && (
             <StyledExtras>
               <div>Tagesessen: {delivery.daymeal}</div>
@@ -71,6 +74,10 @@ export default function Order({
           )}
           <StyledDivider>
             <hr></hr>
+            <p>
+              Deine Nachricht:
+              <ImportantMessage>"{delivery.drivermessage}"</ImportantMessage>
+            </p>
           </StyledDivider>
           <StyledExtras>
             {keys.map((extrakey, index) => (
@@ -135,6 +142,12 @@ const StyledStar = styled(Star)`
   margin: 5px;
 `;
 
+const ImportantMessage = styled.span`
+  color: var(--secondaryBGPurple);
+  font-weight: bold;
+  font-style: italic;
+`;
+
 const Container = styled.div`
   display: grid;
   border-radius: 15px;
@@ -164,15 +177,6 @@ const StyledNotesIcon = styled(NotesIcon)`
   left: 14px;
   font-size: 1.5em;
 `;
-
-// const StyledPhone = styled.div`
-//   display: grid;
-//   grid-column-start: 1;
-//   grid-column-end: 3;
-//   font-size: 1.5em;
-//   margin: 0 0 15px;
-//   background-image: linear-gradient(#ff9d2f, #ff6126);
-// `;
 
 const StyledNotes = styled.div`
   display: grid;
