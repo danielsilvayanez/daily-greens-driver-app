@@ -61,7 +61,7 @@ export default function Order({
           <div>{delivery.phone}</div>
           {delivery.daymeal > 0 && (
             <StyledExtras>
-              <div>Tagesessen: {delivery.daymeal}</div>
+              <div>Tagesgericht: {delivery.daymeal}</div>
             </StyledExtras>
           )}
           {Object.keys(meals.document).map(
