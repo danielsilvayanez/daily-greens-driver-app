@@ -59,11 +59,7 @@ export default function Order({
           )}
           <div>{delivery.street}</div>
           <div>{delivery.phone}</div>
-          {delivery.daymeal > 0 && (
-            <StyledExtras>
-              <div>Tagesgericht: {delivery.daymeal}</div>
-            </StyledExtras>
-          )}
+
           {Object.keys(meals.document).map(
             (meal, index) =>
               delivery[meal] > 0 && (
@@ -86,7 +82,6 @@ export default function Order({
               </div>
             ))}
           </StyledExtras>
-
           {!delivery.done && (
             <>
               <Button
@@ -107,7 +102,6 @@ export default function Order({
               />
             </>
           )}
-
           {showModal && (
             <BoxModal toggleModal={setShowModal} handleSubmit={handleSubmit} />
           )}

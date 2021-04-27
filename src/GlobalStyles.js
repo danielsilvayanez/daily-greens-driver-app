@@ -20,5 +20,5 @@ export default createGlobalStyle`
         font-family: 'Lato', sans-serif;
         font-weight: bolder;
     }
-    }
+    
 `;

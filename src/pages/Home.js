@@ -5,7 +5,11 @@ import LoginContext from "../components/auth/loginContext";
 export default function Home({ deliveries, meals }) {
   const { user } = useContext(LoginContext);
   const reducer = (a, b) => a + b;
-  const [dayMealDailyTotal, setDayMealDailyTotal] = useState(0);
+  const [dayMeal1DailyTotal, setDayMeal1DailyTotal] = useState(0);
+  const [dayMeal2DailyTotal, setDayMeal2DailyTotal] = useState(0);
+  const [dayMeal3DailyTotal, setDayMeal3DailyTotal] = useState(0);
+  const [dayMeal4DailyTotal, setDayMeal4DailyTotal] = useState(0);
+  const [dayMeal5DailyTotal, setDayMeal5DailyTotal] = useState(0);
   const [dailyWeekMeal1Total, setdailyWeekMeal1Total] = useState(0);
   const [dailyWeekMeal2Total, setdailyWeekMeal2Total] = useState(0);
   const [dailyDessert1Total, setdailyDessert1Total] = useState(0);
@@ -16,9 +20,33 @@ export default function Home({ deliveries, meals }) {
 
   useEffect(() => {
     if (deliveries.length > 0) {
-      setDayMealDailyTotal(
+      setDayMeal1DailyTotal(
         deliveries
-          .map((delivery) => Number(delivery.document.daymeal))
+          .map((delivery) => Number(delivery.document.daymeal1))
+          .reduce(reducer)
+      );
+
+      setDayMeal2DailyTotal(
+        deliveries
+          .map((delivery) => Number(delivery.document.daymeal2))
+          .reduce(reducer)
+      );
+
+      setDayMeal3DailyTotal(
+        deliveries
+          .map((delivery) => Number(delivery.document.daymeal3))
+          .reduce(reducer)
+      );
+
+      setDayMeal4DailyTotal(
+        deliveries
+          .map((delivery) => Number(delivery.document.daymeal4))
+          .reduce(reducer)
+      );
+
+      setDayMeal5DailyTotal(
+        deliveries
+          .map((delivery) => Number(delivery.document.daymeal5))
           .reduce(reducer)
       );
 
@@ -61,8 +89,6 @@ export default function Home({ deliveries, meals }) {
     }
   }, [deliveries]);
 
-  console.log("meeeals", deliveries);
-
   function getExtras() {
     const keys = [];
     const values = [];
@@ -92,23 +118,47 @@ export default function Home({ deliveries, meals }) {
         ) : null}
       </div>
       <StyledOverview>
-        <p>Tagesgerichte: {dayMealDailyTotal}</p>
-        {meals?.document && (
+        {meals?.document && dayMeal1DailyTotal > 0 && (
+          <p>
+            {meals?.document?.daymeal1}: {dayMeal1DailyTotal}
+          </p>
+        )}
+        {meals?.document && dayMeal2DailyTotal > 0 && (
+          <p>
+            {meals?.document?.daymeal2}: {dayMeal2DailyTotal}
+          </p>
+        )}
+        {meals?.document && dayMeal3DailyTotal > 0 && (
+          <p>
+            {meals?.document?.daymeal3}: {dayMeal3DailyTotal}
+          </p>
+        )}
+        {meals?.document && dayMeal4DailyTotal > 0 && (
+          <p>
+            {meals?.document?.daymeal4}: {dayMeal4DailyTotal}
+          </p>
+        )}
+        {meals?.document && dayMeal5DailyTotal > 0 && (
+          <p>
+            {meals?.document?.daymeal5}: {dayMeal5DailyTotal}
+          </p>
+        )}
+        {meals?.document && dailyWeekMeal1Total > 0 && (
           <p>
             {meals?.document?.weekmeal1}: {dailyWeekMeal1Total}
           </p>
         )}
-        {meals?.document && (
+        {meals?.document && dailyWeekMeal2Total > 0 && (
           <p>
             {meals?.document?.weekmeal2}: {dailyWeekMeal2Total}
           </p>
         )}
-        {meals?.document && (
+        {meals?.document && dailyDessert1Total > 0 && (
           <p>
             {meals?.document?.dessert1}: {dailyDessert1Total}
           </p>
         )}
-        {meals?.document && (
+        {meals?.document && dailyDessert2Total > 0 && (
           <p>
             {meals?.document?.dessert2}: {dailyDessert2Total}
           </p>
@@ -122,8 +172,8 @@ export default function Home({ deliveries, meals }) {
       </StyledOverview>
       <StyledOverview>
         <h3>Rücknahme Pfand</h3>
-        <p>Boxen groß: {boxDailyTotal}</p>
-        <p>Boxen klein: {boxSmallDailyTotal}</p>
+        {boxDailyTotal > 0 && <p>Boxen groß: {boxDailyTotal}</p>}
+        {boxSmallDailyTotal > 0 && <p>Boxen klein: {boxSmallDailyTotal}</p>}
       </StyledOverview>
     </StyledArea>
   );
