@@ -10,8 +10,6 @@ export default function Home({ deliveries, meals }) {
   const [dayMeal3DailyTotal, setDayMeal3DailyTotal] = useState(0);
   const [dayMeal4DailyTotal, setDayMeal4DailyTotal] = useState(0);
   const [dayMeal5DailyTotal, setDayMeal5DailyTotal] = useState(0);
-  const [dailyWeekMeal1Total, setdailyWeekMeal1Total] = useState(0);
-  const [dailyWeekMeal2Total, setdailyWeekMeal2Total] = useState(0);
   const [dailyDessert1Total, setdailyDessert1Total] = useState(0);
   const [dailyDessert2Total, setdailyDessert2Total] = useState(0);
   const [boxSmallDailyTotal, setBoxSmallDailyTotal] = useState(0);
@@ -47,18 +45,6 @@ export default function Home({ deliveries, meals }) {
       setDayMeal5DailyTotal(
         deliveries
           .map((delivery) => Number(delivery.document.daymeal5))
-          .reduce(reducer)
-      );
-
-      setdailyWeekMeal1Total(
-        deliveries
-          .map((delivery) => Number(delivery.document.weekmeal1))
-          .reduce(reducer)
-      );
-
-      setdailyWeekMeal2Total(
-        deliveries
-          .map((delivery) => Number(delivery.document.weekmeal2))
           .reduce(reducer)
       );
 
@@ -118,6 +104,7 @@ export default function Home({ deliveries, meals }) {
         ) : null}
       </div>
       <StyledOverview>
+        <h3>Übersicht Gerichte</h3>
         {meals?.document && dayMeal1DailyTotal > 0 && (
           <p>
             {meals?.document?.daymeal1}: {dayMeal1DailyTotal}
@@ -143,16 +130,6 @@ export default function Home({ deliveries, meals }) {
             {meals?.document?.daymeal5}: {dayMeal5DailyTotal}
           </p>
         )}
-        {meals?.document && dailyWeekMeal1Total > 0 && (
-          <p>
-            {meals?.document?.weekmeal1}: {dailyWeekMeal1Total}
-          </p>
-        )}
-        {meals?.document && dailyWeekMeal2Total > 0 && (
-          <p>
-            {meals?.document?.weekmeal2}: {dailyWeekMeal2Total}
-          </p>
-        )}
         {meals?.document && dailyDessert1Total > 0 && (
           <p>
             {meals?.document?.dessert1}: {dailyDessert1Total}
@@ -171,7 +148,7 @@ export default function Home({ deliveries, meals }) {
         ))}
       </StyledOverview>
       <StyledOverview>
-        <h3>Rücknahme Pfand</h3>
+        <h3>Übersicht Pfandboxen</h3>
         {boxDailyTotal > 0 && <p>Boxen groß: {boxDailyTotal}</p>}
         {boxSmallDailyTotal > 0 && <p>Boxen klein: {boxSmallDailyTotal}</p>}
       </StyledOverview>
