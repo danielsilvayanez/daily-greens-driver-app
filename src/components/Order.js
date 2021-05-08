@@ -23,6 +23,7 @@ export default function Order({
   values = Object.values(delivery.extra);
 
   const [showModal, setShowModal] = useState(false);
+  const [individualstop, setIndividualstopStop] = useState(delivery.stop);
 
   function handleSubmit(boxNum, smallboxNum, drivermessage) {
     let newDeliveries = [...deliveries];
@@ -35,6 +36,18 @@ export default function Order({
     patchDelivery(documentId, newDeliveries[index].document);
   }
 
+  function handleChange(event) {
+    event.target.name === "stop" && setIndividualstopStop(event.target.value);
+  }
+
+  function handleSubmitStop() {
+    let newDeliveries = [...deliveries];
+    newDeliveries[index].document.stop = Number(individualstop);
+    setDeliveries(newDeliveries);
+    setNewindex(index + 1);
+    patchDelivery(documentId, newDeliveries[index].document);
+  }
+
   return (
     <DeliveryContainer>
       {details ? (
@@ -42,6 +55,18 @@ export default function Order({
           {delivery.newcustomer && <StyledStar />}
           <StyledNotes>
             <h2>{delivery.name}</h2>
+            {!delivery.done && (
+              <form onSubmit="handleSubmitStop">
+                <label htmlFor="stop">Stopp </label>
+                <input
+                  type="number"
+                  name="stop"
+                  value={individualstop}
+                  onChange={handleChange}
+                />
+                <button onClick={handleSubmitStop}>save</button>
+              </form>
+            )}
           </StyledNotes>
           {delivery.message && (
             <StyledNotes>
