@@ -24,13 +24,26 @@ export default function App() {
   const user = useAuth();
   const [meals, setMeals] = useState({});
 
+  function compareStop(a, b) {
+    const stopA = a.document.stop;
+    const stopB = b.document.stop;
+
+    let comparison = 0;
+    if (stopA > stopB) {
+      comparison = 1;
+    } else {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
   useEffect(() => {
     fetchMeals().then((dbResult) => {
       setMeals(dbResult[0]);
     });
     user &&
       fetchDeliveries(user.uid).then((dbResult) => {
-        setDeliveries(dbResult.sort(compare));
+        setDeliveries(dbResult.sort(compare).sort(compareStop));
       });
     user &&
       fetchNextDayDeliveries(user.uid).then((dbResult) => {
