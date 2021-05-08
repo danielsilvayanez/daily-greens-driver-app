@@ -56,7 +56,7 @@ export default function Order({
           <StyledNotes>
             <h2>{delivery.name}</h2>
             {!delivery.done && (
-              <form onSubmit="handleSubmitStop">
+              <StyledForm onSubmit="handleSubmitStop">
                 <label htmlFor="stop">Stopp </label>
                 <input
                   type="number"
@@ -64,8 +64,8 @@ export default function Order({
                   value={individualstop}
                   onChange={handleChange}
                 />
-                <button onClick={handleSubmitStop}>save</button>
-              </form>
+                <button onClick={handleSubmitStop}>speichern</button>
+              </StyledForm>
             )}
           </StyledNotes>
           {delivery.message && (
@@ -159,6 +159,22 @@ const StyledStar = styled(Star)`
   position: absolute;
   left: 15px;
   margin: 5px;
+`;
+
+const StyledForm = styled.form`
+  input {
+    font-size: 1.5rem;
+    width: 30px;
+  }
+
+  button {
+    height: 60px;
+    border: 2px solid var(--secondaryBGPurple);
+    background-color: ${(props) =>
+      props.primary ? "var(--primaryBGBtnGreen)" : "var(--primaryBgWhite)"};
+    border-radius: 15px;
+    margin: 5px 0 0 15px;
+  }
 `;
 
 const ImportantMessage = styled.span`
