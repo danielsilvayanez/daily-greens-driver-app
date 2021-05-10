@@ -187,7 +187,7 @@ const ImportantMessage = styled.span`
 const Container = styled.div`
   display: grid;
   border-radius: 15px;
-  border: 2px solid var(--secondaryBGPurple);
+  border: 2px solid var(--primaryBGPurpleDarker);
   grid-template-columns: 1fr 1fr;
   height: auto;
   padding: 20px;

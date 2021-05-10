@@ -60,7 +60,6 @@ const Orderlist = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding: 10px; */
 `;
 
 const RevertArrow = styled(FontAwesomeIcon)`

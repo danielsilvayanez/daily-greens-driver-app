@@ -24,7 +24,7 @@ const StyledHeader = styled.header`
   border: 1px solid --primaryBGBtnGreen;
   padding: 5px;
   align-items: flex-end;
-  background-color: var(--primaryBGBtnGreen);
+  background-color: var(--secondaryBGPurple);
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;

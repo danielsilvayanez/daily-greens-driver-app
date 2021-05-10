@@ -21,7 +21,7 @@ const Nav = styled.nav`
   height: 48px;
   position: fixed;
   bottom: 0;
-  background-color: var(--primaryBGBtnGreen);
+  background-color: var(--secondaryBGPurple);
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -40,11 +40,11 @@ const StyledNavLink = styled(NavLink)`
   }
 
   :visited {
-    color: var(--primaryFontGrey);
+    color: var(--primaryBGBtnGreen);
   }
 
   &.active {
-    background-color: var(--secondaryBGPurple);
+    background-color: var(--primaryBGBtnGreen);
     color: var(--primaryBgWhite);
   }
 `;

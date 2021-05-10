@@ -94,7 +94,7 @@ const Button = styled.button`
   font-size: 1.5em;
   cursor: pointer;
   :active {
-    background-color: var(--secondaryBGPurple);
+    background-color: var(--primaryBGPurpleDarker);
     color: var(--primaryBgWhite);
   }
 `;
