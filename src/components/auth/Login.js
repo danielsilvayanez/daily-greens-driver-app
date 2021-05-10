@@ -40,9 +40,9 @@ export default function Login() {
             type="password"
             ref={userPassword}
           />
-
-          <StyledButton type="submit">Login</StyledButton>
         </LoginContainer>
+
+        <StyledButton type="submit">Login</StyledButton>
       </form>
     </Container>
   );
