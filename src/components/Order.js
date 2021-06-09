@@ -165,7 +165,7 @@ const StyledStar = styled(Star)`
 const StyledForm = styled.form`
   input {
     font-size: 1.5rem;
-    width: 40px;
+    width: 50px;
   }
 
   button {
